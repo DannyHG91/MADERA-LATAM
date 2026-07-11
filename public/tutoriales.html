@@ -3,278 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>[ MAINFRAME C.M.M. - CENTRO DE INSTRUCCIÓN ]</title>
+    <title>[ MAINFRAME MADERA - CENTRO DE INSTRUCCIÓN ]</title>
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="mobile-web-app-capable" content="yes">
 
     <style>
+        /* Jerarquía Visual: Colores Oficiales del Mainframe (Verde Táctico) */
         :root {
-            --stealth-dark: #020407;
-            --glass-core: rgba(7, 13, 22, 0.55);
-            --laser-cyan: #00d9ff;
-            --laser-glow: rgba(0, 217, 255, 0.18);
-            --sub-slate: #56687a;
+            --bg: #06110A;
+            --bg-radial: #0a1f13;
+            --panel: rgba(5, 12, 8, 0.75);
+            --green: #3DDA72;
+            --green2: #86FFC0;
+            --green-glow: rgba(61, 218, 114, 0.3);
             --pure-light: #f1f5f9;
-            --grid-line: rgba(0, 217, 255, 0.015);
+            --text: #C9D8CF;
+            --sub-slate: #88a392;
+            --grid-line: rgba(61, 218, 114, 0.03);
         }
 
         html, body {
-            width: 100%;
-            height: 100dvh;
-            margin: 0;
-            padding: 0;
-            overflow: hidden; 
-            background-color: var(--stealth-dark);
-            box-sizing: border-box;
+            width: 100%; height: 100dvh; margin: 0; padding: 0; overflow: hidden; 
+            background-color: var(--bg); box-sizing: border-box;
         }
 
         body {
-            color: var(--pure-light);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            touch-action: none;
-            position: relative;
-            background-image: 
-                linear-gradient(var(--grid-line) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-            background-size: 40px 40px;
-            background-position: center;
-
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
+            color: var(--pure-light); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            touch-action: none; position: relative;
+            background: radial-gradient(circle at center, var(--bg-radial) 0%, #020604 80%);
+            background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 50px 50px; background-position: center;
+            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
         }
 
+        /* RENDIMIENTO GPU */
         .mainframe-container, .laser-border, .telemetry-stream-feed {
-            -webkit-transform: translate3d(0,0,0);
-            transform: translate3d(0,0,0);
-            will-change: transform, opacity;
+            -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0); will-change: transform, opacity;
         }
 
-        /* CONSOLA CENTRAL MAINFRAME - ADAPTADA PARA VENTANA FLOTANTE */
+        /* EFECTO GLITCH DE ENCENDIDO */
+        .glitch-anim { animation: crt-power-on 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
+        @keyframes crt-power-on {
+            0% { transform: scale(1.05) translateY(10px); opacity: 0; filter: contrast(200%) brightness(150%) hue-rotate(90deg); }
+            20% { transform: scale(0.98) translateY(-5px); opacity: 0.8; filter: contrast(150%) brightness(120%) blur(2px); }
+            40% { transform: scale(1.02) translateY(2px); opacity: 1; filter: contrast(100%) brightness(100%); clip-path: inset(20% 0 80% 0); }
+            60% { clip-path: inset(80% 0 10% 0); transform: translateX(-5px); }
+            80% { clip-path: inset(10% 0 50% 0); transform: translateX(5px); }
+            100% { transform: scale(1) translateY(0); opacity: 1; clip-path: inset(0% 0 0% 0); }
+        }
+
+        /* TELEMETRÍA DE FONDO (VERDE TÁCTICO) */
+        .telemetry-bg-container {
+            position: absolute; top: 0; left: 0; width: 100vw; height: 100dvh;
+            z-index: 2; pointer-events: none; overflow: hidden;
+            display: flex; justify-content: space-between; box-sizing: border-box; padding: 0 clamp(10px, 4vw, 40px); 
+        }
+        .telemetry-column {
+            width: 50px; font-family: monospace; font-size: 8px; color: var(--green); opacity: 0.12; 
+            line-height: 1.5; letter-spacing: 2px; word-break: break-all; display: flex; flex-direction: column; white-space: nowrap;
+        }
+        .telemetry-stream-feed { animation: cascade-up 12s infinite linear; }
+        .col-left .telemetry-stream-feed { animation-duration: 15s; }
+        .col-right .telemetry-stream-feed { animation-duration: 11s; animation-delay: -2s; }
+        @keyframes cascade-up { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(0, -33.33%, 0); } }
+        /* WRAPPER PROTECTOR */
+        .mainframe-wrapper {
+            position: relative; width: 100%; max-width: 480px; height: 100dvh; max-height: 100dvh; z-index: 5; opacity: 0;
+        }
+
+        .mainframe-bg {
+            position: absolute; inset: 0; background: var(--panel); border: 1px solid rgba(61, 218, 114, 0.25);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 0 20px rgba(61, 218, 114, 0.05),
+                0 30px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(61, 218, 114, 0.15);
+            backdrop-filter: blur(35px); -webkit-backdrop-filter: blur(35px);
+            clip-path: polygon(0% 0%, 96% 0%, 100% 4%, 100% 100%, 4% 100%, 0% 96%); z-index: -1; overflow: hidden;
+        }
+
         .mainframe-container {
-            background: var(--glass-core);
-            border: 1px solid rgba(0, 217, 255, 0.15);
-            padding: 20px 16px;
-            width: 100%;          
-            max-width: 440px;
-            height: 100dvh;         
-            max-height: 100dvh;
-            box-sizing: border-box;
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8), 0 0 30px var(--laser-glow);
-            clip-path: polygon(0% 0%, 92% 0%, 100% 8%, 100% 100%, 8% 100%, 0% 92%);
-            position: relative;
-            z-index: 5;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            gap: 14px;              
-            overflow-y: auto;
-            overflow-x: hidden;
-            scrollbar-width: none;
+            padding: clamp(20px, 4vw, 30px) clamp(16px, 4vw, 24px); display: flex; flex-direction: column;
+            justify-content: flex-start; gap: 16px; position: relative; height: 100%;
+            overflow-y: auto; overflow-x: hidden; scrollbar-width: none;
+            /* Zona segura para no chocar con bordes nativos del celular */
+            padding-bottom: calc(30px + env(safe-area-inset-bottom));
         }
+        .mainframe-container::-webkit-scrollbar { display: none; }
 
-        .mainframe-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* LÁSER PERIMETRAL */
-        .laser-border {
-            position: absolute;
-            background: linear-gradient(90deg, transparent, var(--laser-cyan), transparent);
-            z-index: 6;
-        }
+        /* LÁSER PERIMETRAL VERDE */
+        .laser-border { position: absolute; background: linear-gradient(90deg, transparent, var(--green), transparent); z-index: 6; pointer-events: none; opacity: 0.7; }
         .lb-top { top: 0; left: 0; width: 100%; height: 1px; animation: laser-h 4s infinite ease-in-out alternate; }
         .lb-bottom { bottom: 0; left: 0; width: 100%; height: 1px; animation: laser-h-rev 4s infinite ease-in-out alternate; }
+        @keyframes laser-h { 0% { transform: translate3d(-100%, 0, 0); opacity: 0; } 50% { opacity: 1; } 100% { transform: translate3d(100%, 0, 0); opacity: 0; } }
+        @keyframes laser-h-rev { 0% { transform: translate3d(100%, 0, 0); opacity: 0; } 50% { opacity: 1; } 100% { transform: translate3d(-100%, 0, 0); opacity: 0; } }
 
-        @keyframes laser-h { 0% { transform: translate3d(-100%, 0, 0); } 100% { transform: translate3d(100%, 0, 0); } }
-        @keyframes laser-h-rev { 0% { transform: translate3d(100%, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
+        /* ÁNGULOS ESTRUCTURALES */
+        .corner-bracket { position: absolute; width: 14px; height: 14px; border: 2px solid rgba(61, 218, 114, 0.5); z-index: 7; pointer-events: none; }
+        .tl { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+        .tr { top: -2px; right: -2px; border-left: none; border-bottom: none; }
+        .bl { bottom: -2px; left: -2px; border-right: none; border-top: none; }
+        .br { bottom: -2px; right: -2px; border-left: none; border-top: none; }
 
-        .corner-bracket {
-            position: absolute;
-            width: 14px; height: 14px;
-            border: 2px solid rgba(0, 217, 255, 0.3);
-            z-index: 7;
-        }
-        .tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
-        .tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
-        .bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
-        .br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
-
-        /* CABECERA */
-        .header-shield {
-            text-align: left;
-            margin-bottom: 2px;
-            flex-shrink: 0;
-        }
-
-        .live-data-stream {
-            display: flex;
-            justify-content: space-between;
-            font-size: 9px;
-            font-family: monospace;
-            color: var(--sub-slate);
-            letter-spacing: 1.5px;
-        }
-
-        .live-node::after {
-            content: '●';
-            color: var(--laser-cyan);
-            margin-left: 5px;
-            animation: soft-blink 2s infinite steps(2, start);
-        }
+        /* CABECERA OPERATIVA */
+        .header-shield { text-align: left; margin-bottom: 2px; flex-shrink: 0; border-bottom: 1px solid rgba(61, 218, 114, 0.2); padding-bottom: 10px; }
+        .live-data-stream { display: flex; justify-content: space-between; font-size: 9px; font-family: monospace; color: var(--sub-slate); letter-spacing: 1.5px; }
+        .live-node::after { content: '●'; color: var(--green2); margin-left: 5px; animation: soft-blink 2s infinite steps(2, start); }
         @keyframes soft-blink { to { opacity: 0.2; } }
 
-        h1 {
-            font-size: clamp(14px, 4.5vw, 19px);
-            font-weight: 900;
-            margin: 6px 0 2px 0;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            text-align: center;
-            background: linear-gradient(180deg, #ffffff 40%, #a4b8cc 70%, var(--laser-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.4));
-        }
-
-        /* CONTENEDOR DE MULTIMEDIA TÁCTICA */
+        h1 { font-size: clamp(16px, 5vw, 22px); font-weight: 900; margin: 8px 0 2px 0; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; color: var(--pure-light); text-shadow: 0 0 10px rgba(255,255,255,0.2); }
+        h1 strong { color: var(--green); text-shadow: 0 0 10px var(--green-glow); }
+        
+        .type-cursor { display: inline-block; width: 6px; height: 12px; background-color: var(--green2); animation: blink-cursor 0.8s step-end infinite; vertical-align: middle; margin-left: 4px;}
+        @keyframes blink-cursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        /* CONTENEDOR MULTIMEDIA TÁCTICO */
         .instruction-video-box {
-            background: rgba(10, 17, 26, 0.7);
-            border: 1px solid rgba(0, 217, 255, 0.15);
-            padding: 12px;
-            position: relative;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            flex-shrink: 0;
+            background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(61, 218, 114, 0.2);
+            padding: 12px; position: relative; box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; margin-top: 10px;
         }
 
-        .video-meta {
-            font-family: monospace;
-            font-size: 10px;
-            color: var(--laser-cyan);
-            letter-spacing: 1px;
-            display: flex;
-            justify-content: space-between;
-        }
+        /* Esquinas metálicas del reproductor */
+        .boot-corner { position: absolute; width: 6px; height: 6px; border: 1px solid var(--green); pointer-events: none; }
+        .boot-corner.tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .boot-corner.tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+        .boot-corner.bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+        .boot-corner.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
 
+        .video-meta { font-family: monospace; font-size: 10px; color: var(--green2); letter-spacing: 1px; display: flex; justify-content: space-between; }
+        
         /* REPRODUCTOR TÁCTICO VERTICAL */
         video {
-            width: 100%;
-            border-radius: 2px;
-            border: 1px solid rgba(0, 217, 255, 0.2);
-            background: #000;
-            outline: none;
+            width: 100%; border-radius: 2px; border: 1px solid rgba(61, 218, 114, 0.15);
+            background: #020604; outline: none; box-shadow: 0 0 15px rgba(0,0,0,0.9);
         }
 
-        .video-desc {
-            font-size: 11px;
-            color: #a4b8cc;
-            line-height: 1.5;
-            margin: 0;
-            font-family: monospace;
-        }
+        .video-desc { font-size: 11px; color: var(--text); line-height: 1.5; margin: 0; font-family: monospace; text-align: justify; }
 
-        /* BOTÓN DE RETORNO AL MAIN REGISTRO */
+        /* BOTÓN DE RETORNO CON ZONA SEGURA (SAFE AREA) */
         .btn-return {
-            display: block;
-            padding: 14px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.04));
-            border: 1px solid var(--sub-slate);
-            color: var(--pure-light);
-            text-decoration: none;
-            font-family: monospace;
-            font-size: 11px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-align: center;
-            text-transform: uppercase;
+            display: block; padding: 16px; background: linear-gradient(135deg, rgba(61, 218, 114, 0.05), rgba(61, 218, 114, 0.1));
+            border: 1px solid var(--green); color: var(--green2); text-decoration: none; font-family: monospace;
+            font-size: 11px; font-weight: 900; letter-spacing: 3px; text-align: center; text-transform: uppercase;
             clip-path: polygon(0% 0%, 94% 0%, 100% 30%, 100% 100%, 6% 100%, 0% 70%);
-            transition: all 0.15s linear;
-            margin-top: auto; 
-            -webkit-tap-highlight-color: transparent;
+            transition: all 0.2s ease; margin-top: auto; -webkit-tap-highlight-color: transparent;
+            /* Margen inferior dinámico para evitar barras del OS */
+            margin-bottom: env(safe-area-inset-bottom);
         }
-        .btn-return:active {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--pure-light);
-            transform: scale3d(0.99, 0.99, 1);
-        }
+        .btn-return:hover { background: rgba(61, 218, 114, 0.15); box-shadow: 0 0 20px rgba(61, 218, 114, 0.3); text-shadow: 0 0 8px var(--green2); }
+        .btn-return:active { background: var(--green); color: var(--bg); transform: scale3d(0.98, 0.98, 1); }
 
-        /* TELEMETRÍA DE FONDO HUD */
-        .telemetry-bg-container {
-            position: absolute;
-            top: 0; left: 0; width: 100vw; height: 100dvh;
-            z-index: 2; pointer-events: none; overflow: hidden;
-            display: flex; justify-content: space-between; box-sizing: border-box; padding: 0 40px; 
-        }
-
-        .telemetry-column {
-            width: 50px; font-family: monospace; font-size: 8px; color: var(--laser-cyan); opacity: 0.04; line-height: 1.4; letter-spacing: 1px; word-break: break-all; display: flex; flex-direction: column; white-space: nowrap;
-        }
-
-        .telemetry-stream-feed { animation: cascade-up 12s infinite linear; }
-        @keyframes cascade-up { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(0, -33.33%, 0); } }
-
-        .hud-frame-telemetry {
-            position: absolute; top: 0; left: 0; width: 100vw; height: 100dvh; pointer-events: none; z-index: 3; box-sizing: border-box; padding: 15px; font-family: monospace; font-size: 8px; color: rgba(0, 217, 255, 0.25); letter-spacing: 1px; display: flex; flex-direction: column; justify-content: space-between;
-        }
+        /* TELEMETRÍA PERIMETRAL */
+        .hud-frame-telemetry { position: absolute; top: 0; left: 0; width: 100vw; height: 100dvh; pointer-events: none; z-index: 3; box-sizing: border-box; padding: clamp(15px, 4vw, 30px); font-family: monospace; font-size: 8px; color: rgba(61, 218, 114, 0.4); letter-spacing: 2px; display: flex; flex-direction: column; justify-content: space-between; }
         .hud-row { display: flex; justify-content: space-between; width: 100%; }
 
-        /* DETECTAR INTERFAZ EN VENTANA FLOTANTE O DISPOSITIVOS PEQUEÑOS */
+        /* VENTANAS FLOTANTES Y MÓVILES PEQUEÑOS */
         @media (max-width: 450px), (max-height: 650px) {
             body { background-size: 20px 20px; }
+            .mainframe-wrapper { width: 100vw; max-width: 100%; }
+            .mainframe-bg { clip-path: none; border-radius: 0; border-left: none; border-right: none; }
             .mainframe-container { 
-                height: 100dvh; 
-                max-height: 100dvh; 
-                width: 100vw; 
-                max-width: 100%;
-                padding: 12px 10px; 
-                gap: 8px; 
-                clip-path: none; 
-                border-left: none;
-                border-right: none;
+                padding: 15px 12px 35px 12px; /* Mayor espacio interno abajo */
+                padding-bottom: calc(35px + env(safe-area-inset-bottom));
+                gap: 12px; 
             }
-            .telemetry-bg-container, .hud-frame-telemetry, .corner-bracket, .laser-border { 
-                display: none !important; 
-            }
+            .telemetry-bg-container, .hud-frame-telemetry, .corner-bracket, .laser-border { display: none !important; }
             .btn-return { 
                 clip-path: none; 
-                padding: 10px; 
-                font-size: 10px;
-            }
-            h1 { 
-                font-size: 14px; 
-                margin: 2px 0; 
-            }
-            .instruction-video-box { 
-                padding: 8px; 
-                gap: 6px; 
-            }
-            .video-meta { 
-                font-size: 9px; 
-            }
-            .video-desc { 
+                padding: 14px; 
                 font-size: 10px; 
-                line-height: 1.3; 
+                margin-top: auto; 
+                margin-bottom: 25px; /* Separación extra contra barras de navegación nativas */
             }
+            .instruction-video-box { padding: 10px; gap: 8px; }
         }
     </style>
 </head>
 <body>
 
     <div class="telemetry-bg-container">
-        <div class="telemetry-column"><div class="telemetry-stream-feed">A4F9B2C8<br>D3E710F5<br>6B8C9D0E<br>1A2F34BC<br>78DE90F1<br>FFA01234</div></div>
-        <div class="telemetry-column"><div class="telemetry-stream-feed" style="animation-duration: 9s;">90F12345<br>ABCDEF67<br>8901BCDE<br>2345FFA0<br>1234A4F9<br>B2C8D3E7</div></div>
+        <div class="telemetry-column col-left">
+            <div class="telemetry-stream-feed">A4F9B2C8<br>D3E710F5<br>6B8C9D0E<br>1A2F34BC<br>78DE90F1<br>FFA01234</div>
+        </div>
+        <div class="telemetry-column col-right">
+            <div class="telemetry-stream-feed">90F12345<br>ABCDEF67<br>8901BCDE<br>2345FFA0<br>1234A4F9<br>B2C8D3E7</div>
+        </div>
     </div>
 
     <div class="hud-frame-telemetry">
@@ -284,62 +197,103 @@
         </div>
     </div>
 
-    <div class="mainframe-container">
-        <div class="laser-border lb-top"></div>
-        <div class="laser-border lb-bottom"></div>
+    <!-- WRAPPER CENTRAL CON IDENTIFICADOR DE GLITCH -->
+    <div class="mainframe-wrapper" id="main-terminal">
+        <div class="mainframe-bg">
+            <div class="laser-border lb-top"></div>
+            <div class="laser-border lb-bottom"></div>
+        </div>
 
         <div class="corner-bracket tl"></div>
         <div class="corner-bracket tr"></div>
         <div class="corner-bracket bl"></div>
         <div class="corner-bracket br"></div>
 
-        <div class="header-shield">
-            <div class="live-data-stream">
-                <span>MODULO // RECLUTAMIENTO</span>
-                <span class="live-node">ACCESO_LIBRE</span>
-            </div>
-            <h1>CENTRO DE INSTRUCCIÓN</h1>
-        </div>
-
-        <div class="instruction-video-box">
-            <div class="boot-corner tl" style="border-color: var(--laser-cyan); width:6px; height:6px;"></div>
-            <div class="boot-corner tr" style="border-color: var(--laser-cyan); width:6px; height:6px;"></div>
-            <div class="boot-corner bl" style="border-color: var(--laser-cyan); width:6px; height:6px;"></div>
-            <div class="boot-corner br" style="border-color: var(--laser-cyan); width:6px; height:6px;"></div>
-
-            <div class="video-meta">
-                <span>[ FASE 1: COMO AÑADIR MACROS ]</span>
-                <span>T_DUR: 00:39</span>
+        <div class="mainframe-container">
+            
+            <div class="header-shield">
+                <div class="live-data-stream">
+                    <span><span id="moduleDisplay"></span><span class="type-cursor"></span></span>
+                    <span class="live-node">ACCESO_LIBRE</span>
+                </div>
+                <h1>CENTRO DE <strong>INSTRUCCIÓN</strong></h1>
             </div>
 
-            <!-- ENLACE DIRECTO DE CLOUDINARY CONFIGURADO CON SOPORTE PICTURE-IN-PICTURE -->
-            <video controls preload="metadata" playsinline pip="true" insidepipplayer="true">
-                <source src="https://res.cloudinary.com/drfa7wuzt/video/upload/v1782594115/tutorial_reclutas_jy86sz.mp4" type="video/mp4">
-                SISTEMA NO COMPATIBLE CON REPRODUCCIÓN LOCAL MP4.
-            </video>
+            <div class="instruction-video-box">
+                <!-- Esquinas de hardware restauradas -->
+                <div class="boot-corner tl"></div>
+                <div class="boot-corner tr"></div>
+                <div class="boot-corner bl"></div>
+                <div class="boot-corner br"></div>
 
-            <p class="video-desc"> ATENCIÓN RECLUTA: Visualiza el vídeo para aprender a como colocar tus macros correctamente</p>
+                <div class="video-meta">
+                    <span>[ FASE 1: INSTALACIÓN MACROS ]</span>
+                    <span>T_DUR: 00:39</span>
+                </div>
+
+                <video controls preload="metadata" playsinline pip="true" insidepipplayer="true">
+                    <source src="https://res.cloudinary.com/drfa7wuzt/video/upload/v1782594115/tutorial_reclutas_jy86sz.mp4" type="video/mp4">
+                    SISTEMA NO COMPATIBLE CON REPRODUCCIÓN LOCAL MP4.
+                </video>
+
+                <p class="video-desc">ATENCIÓN RECLUTA: Visualiza el archivo desclasificado para aprender a instalar y operar tus macros tácticos correctamente en campo.</p>
+            </div>
+
+            <a class="btn-return" id="btnBack" href="/">
+                ABORTAR / VOLVER AL MENÚ CENTRAL
+            </a>
         </div>
-
-        <a class="btn-return" id="btnBack" href="/">
-            [ Volver al Menú Central ]
-        </a>
     </div>
 
     <script>
         let audioCtx = null;
 
         function initAudio() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
+            if (!audioCtx) { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+            if (audioCtx.state === 'suspended') { audioCtx.resume(); }
         }
 
-        document.addEventListener('click', initAudio, { once: true });
-        document.addEventListener('touchstart', initAudio, { once: true });
+        ['touchstart', 'click'].forEach(evt => document.body.addEventListener(evt, initAudio, {passive: true, once: true}));
+
+        // Sonido de confirmación al presionar "Volver"
+        function playReturnSound() {
+            if(!audioCtx) initAudio();
+            let osc = audioCtx.createOscillator(); let gain = audioCtx.createGain();
+            osc.type = 'sawtooth'; osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.15);
+            gain.gain.setValueAtTime(0.06, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+            osc.connect(gain); gain.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 0.15);
+        }
+
+        // Efectos de carga de terminal
+        window.addEventListener('load', () => {
+            // Activar Glitch inicial
+            document.getElementById('main-terminal').classList.add('glitch-anim');
+            
+            // Máquina de escribir para el subtítulo
+            const targetText = "MODULO // RECLUTAMIENTO BÁSICO";
+            const displayEl = document.getElementById('moduleDisplay');
+            let i = 0;
+            
+            setTimeout(() => {
+                function typeWriter() {
+                    if (i < targetText.length) {
+                        displayEl.innerHTML += targetText.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, 40);
+                    }
+                }
+                typeWriter();
+            }, 600);
+        });
+
+        // Evento de salida
+        document.getElementById('btnBack').addEventListener('click', function(e) {
+            e.preventDefault();
+            const dest = this.getAttribute('href');
+            playReturnSound();
+            setTimeout(() => { window.location.href = dest; }, 150);
+        });
     </script>
 </body>
 </html>

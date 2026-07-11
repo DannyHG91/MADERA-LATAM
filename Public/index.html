@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>[ MAINFRAME C.M.M. - INICIO DE SISTEMA ]</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="C.M.M. Mainframe">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="manifest.json">
+
+    <style>
+        /* Variables de Sistema de Nueva Generación: Cian Táctico, Oro Prestige y Negro Sigilo */
+        :root {
+            --stealth-dark: #020407;
+            --glass-core: rgba(7, 13, 22, 0.55); /* Cristal moderno más limpio y translúcido */
+            --laser-cyan: #00d9ff;
+            --laser-glow: rgba(0, 217, 255, 0.18); /* Iluminación ambiental de fibra óptica */
+            --gold-prestige: #dcae3b;
+            --gold-glow: rgba(220, 174, 59, 0.18);
+            --sub-slate: #56687a;
+            --pure-light: #f1f5f9;
+            --grid-line: rgba(0, 217, 255, 0.015);
+        }
+        /* INGENIERÍA DE PANTALLA COMPLETA VERTICAL REAL (ADAPTABLE A BARRAS DE NAVEGACIÓN MÓVIL) */
+        html, body {
+            width: 100vw;
+            height: 100dvh; /* Forzado dinámico estricto contra barras inferiores de navegadores móviles */
+            margin: 0;
+            padding: 0;
+            overflow: hidden; 
+            background-color: var(--stealth-dark);
+        }
+
+        body {
+            color: var(--pure-light);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            touch-action: none; /* Bloquea el scroll elástico de iOS y rebotes de Android */
+            position: relative;
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 40px 40px; /* Rejilla fina moderna */
+            background-position: center;
+
+            /* Blindaje total contra resaltar textos al presionar la pantalla */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* DIRECTIVA DE REDISTRIBUCIÓN GPU PARA RENDIMIENTO MÁXIMO DE 60 FPS */
+        .system-boot-screen, .mainframe-container, .laser-border, .bar-loader-static::after, .boot-progress-fill, .telemetry-stream-feed {
+            -webkit-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
+            will-change: transform, opacity;
+        }
+
+        /* PANTALLA DE CARGA MILITAR CON ELEMENTOS HUD COMPACTOS */
+        .system-boot-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100dvh; /* Forzado dinámico adaptable */
+            background-color: var(--stealth-dark);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s cubic-bezier(0.1, 0.8, 0.3, 1), visibility 0.6s;
+        }
+
+        /* Contenedor táctico interno de la carga */
+        .boot-box {
+            width: 86vw;
+            max-width: 360px;
+            background: rgba(14, 21, 31, 0.5);
+            border: 1px solid rgba(220, 174, 59, 0.2);
+            padding: 25px 20px;
+            position: relative;
+            box-shadow: 0 0 30px rgba(220, 174, 59, 0.03);
+            text-align: center;
+        }
+
+        /* Esquinas de la intro en Oro de Prestigio */
+        .boot-corner {
+            position: absolute;
+            width: 10px; height: 10px;
+            border: 2px solid var(--gold-prestige);
+        }
+        .b-tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .b-tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+        .b-bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+        .b-br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+        .boot-terminal {
+            width: 100%;
+            font-family: monospace;
+            font-size: 11px;
+            color: var(--gold-prestige);
+            text-align: left;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            letter-spacing: 1px;
+            height: 140px;
+            overflow: hidden;
+            display: none; 
+        }
+
+        /* Botón de activación mandatorio para móviles */
+        .btn-boot-start {
+            padding: 16px 24px;
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.03), rgba(0, 217, 255, 0.08));
+            border: 1px solid var(--laser-cyan);
+            color: var(--laser-cyan);
+            font-family: monospace;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(0, 217, 255, 0.1);
+            transition: all 0.2s ease;
+            margin: 20px 0;
+            border-radius: 2px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .btn-boot-start:active {
+            background: var(--laser-cyan);
+            color: #000;
+            box-shadow: 0 0 25px var(--laser-cyan);
+        }
+
+        .boot-meta-status {
+            display: none; 
+            justify-content: space-between;
+            align-items: center;
+            font-family: monospace;
+            font-size: 10px;
+            color: var(--sub-slate);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .boot-progress-bar {
+            display: none; 
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 217, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .boot-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--laser-cyan), #fff);
+            box-shadow: 0 0 10px var(--laser-cyan);
+        }
+
+        /* CAPA DE DATOS EN CASCADA CIEGA / TELEMETRY FEED (60 FPS) */
+        .telemetry-bg-container {
+            position: absolute;
+            top: 0; left: 0; width: 100vw; height: 100dvh;
+            z-index: 2;
+            pointer-events: none;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            box-sizing: border-box;
+            padding: 0 40px; 
+        }
+
+        .telemetry-column {
+            width: 50px;
+            font-family: monospace;
+            font-size: 8px;
+            color: var(--laser-cyan);
+            opacity: 0.06; /* Sutil e inmersivo */
+            line-height: 1.4;
+            letter-spacing: 1px;
+            word-break: break-all;
+            display: flex;
+            flex-direction: column;
+            white-space: nowrap;
+        }
+
+        .telemetry-stream-feed {
+            animation: cascade-up 12s infinite linear;
+        }
+        .col-left .telemetry-stream-feed { animation-duration: 14s; }
+        .col-right .telemetry-stream-feed { animation-duration: 10s; animation-delay: -2s; }
+
+        @keyframes cascade-up {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(0, -33.33%, 0); }
+        }
+
+        /* CONSOLA CENTRAL COMPACTA CON SOPORTE PARA VENTANA FLOTANTE */
+        .mainframe-container {
+            background: var(--glass-core);
+            border: 1px solid rgba(0, 217, 255, 0.15);
+            padding: 20px 16px;
+            width: 96vw;          
+            max-width: 440px;
+            height: 90dvh;         
+            max-height: 90dvh;
+            box-sizing: border-box;
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8), 0 0 30px var(--laser-glow);
+
+            /* CORTE POLIGONAL ASIMÉTRICO (Se desactiva dinámicamente en ventanas muy pequeñas para evitar bugs visuales) */
+            clip-path: polygon(0% 0%, 92% 0%, 100% 8%, 100% 100%, 8% 100%, 0% 92%);
+
+            position: relative;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Cambiado a flex-start para dar espacio al scroll si se encoge */
+            gap: 12px;              
+
+            /* Optimización para Ventana Flotante / Mini-pantallas */
+            overflow-y: auto; /* Permite scroll si la ventana flotante es muy baja */
+            overflow-x: hidden;
+            scrollbar-width: none; /* Oculta scrollbar en Firefox */
+        }
+
+        /* Ocultar barra de scroll en Chrome/Safari/Edge para mantener estética limpia */
+        .mainframe-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* LÁSER PERIMETRAL DE AUTORIDAD EN MODO VAIVÉN / PING-PONG (60 FPS) */
+        .laser-border {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, var(--laser-cyan), transparent);
+            z-index: 6;
+        }
+        .lb-top { top: 0; left: 0; width: 100%; height: 1px; animation: laser-h 4s infinite ease-in-out alternate; }
+        .lb-bottom { bottom: 0; left: 0; width: 100%; height: 1px; animation: laser-h-rev 4s infinite ease-in-out alternate; }
+
+        @keyframes laser-h { 0% { transform: translate3d(-100%, 0, 0); } 100% { transform: translate3d(100%, 0, 0); } }
+        @keyframes laser-h-rev { 0% { transform: translate3d(100%, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
+
+        /* Ángulos de Titanio para el Enfoque de Retícula */
+        .corner-bracket {
+            position: absolute;
+            width: 14px; height: 14px;
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            z-index: 7;
+        }
+        .tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+        .bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+        .br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+        /* CABECERA CON MÉTRICAS EN MOVIMIENTO */
+        .header-shield {
+            text-align: left;
+            margin-bottom: 2px;
+            position: relative;
+            flex-shrink: 0; /* Evita que la cabecera se aplaste */
+        }
+
+        .live-data-stream {
+            display: flex;
+            justify-content: space-between;
+            font-size: 9px;
+            font-family: monospace;
+            color: var(--sub-slate);
+            letter-spacing: 1.5px;
+        }
+
+        .live-node::after {
+            content: '●';
+            color: var(--laser-cyan);
+            margin-left: 5px;
+            animation: soft-blink 2s infinite steps(2, start);
+        }
+        @keyframes soft-blink { to { opacity: 0.2; } }
+
+        /* REDISEÑO DE CABECERA DE QUINTA GENERACIÓN MAINFRAME */
+        h1 {
+            font-size: clamp(16px, 5vw, 21px); /* Tamaño fluido adaptable al ancho de ventana */
+            font-weight: 900;
+            margin: 6px 0 2px 0;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-align: center;
+            background: linear-gradient(180deg, #ffffff 40%, #a4b8cc 70%, var(--laser-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.4));
+            animation: title-glow-pulse 4s infinite ease-in-out alternate;
+        }
+
+        @keyframes title-glow-pulse {
+            0% { filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.3)); }
+            100% { filter: drop-shadow(0 0 8px rgba(0, 217, 255, 0.6)) drop-shadow(0 0 15px rgba(0, 217, 255, 0.3)); }
+        }
+
+        .header-sub-index {
+            display: block;
+            font-family: monospace;
+            font-size: 8px;
+            color: var(--laser-cyan);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.8;
+            margin-top: 2px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* SECCIÓN ALTO MANDO */
+        .supreme-command-zone {
+            margin-bottom: 2px;
+            flex-shrink: 0;
+        }
+
+        /* BOTÓN DE ALTO MANDO CON BISEL MODERNO POLIGONAL */
+        .btn-lider {
+            display: block;
+            padding: 14px;
+            background: linear-gradient(135deg, rgba(220, 174, 59, 0.02), rgba(220, 174, 59, 0.06));
+            border: 1px solid var(--gold-prestige);
+            color: var(--gold-prestige);
+            text-decoration: none;
+            position: relative;
+            box-shadow: 0 4px 25px rgba(220, 174, 59, 0.03);
+            clip-path: polygon(0% 0%, 94% 0%, 100% 25%, 100% 100%, 6% 100%, 0% 75%);
+            transition: background-color 0.15s linear, box-shadow 0.15s linear;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-lider::after {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px; right: -1px; bottom: -1px;
+            border: 1px solid var(--gold-prestige);
+            clip-path: polygon(0% 0%, 94% 0%, 100% 25%, 100% 100%, 6% 100%, 0% 75%);
+            opacity: 0.3;
+            animation: gold-pulse-border 3s infinite ease-in-out;
+        }
+        @keyframes gold-pulse-border {
+            0%, 100% { transform: scale3d(1, 1, 1); opacity: 0.3; }
+            50% { transform: scale3d(1.02, 1.02, 1); opacity: 0; }
+        }
+
+        .rank-title { display: block; font-size: clamp(10px, 3.5vw, 12px); font-weight: 800; letter-spacing: 3px; text-align: center; }
+        .rank-subtitle { display: block; font-size: 8px; color: rgba(220, 174, 59, 0.6); letter-spacing: 1px; font-family: monospace; text-align: center; margin-top: 4px; }
+        .btn-lider:active { background: rgba(220, 174, 59, 0.12); box-shadow: 0 0 25px rgba(220, 174, 59, 0.25); transform: scale3d(0.99, 0.99, 1); }
+
+        /* SECCIÓN TÉCNICA PÚBLICA (CENTRO DE INSTRUCCIÓN) */
+        .instruction-zone {
+            margin-bottom: 2px;
+            flex-shrink: 0;
+        }
+
+        .btn-tutoriales {
+            display: block;
+            padding: 10px;
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.01), rgba(0, 217, 255, 0.05));
+            border: 1px solid rgba(0, 217, 255, 0.4);
+            color: var(--laser-cyan);
+            text-decoration: none;
+            font-family: monospace;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-align: center;
+            text-transform: uppercase;
+            box-shadow: 0 2px 15px rgba(0, 217, 255, 0.02);
+            clip-path: polygon(0% 0%, 96% 0%, 100% 35%, 100% 100%, 4% 100%, 0% 65%);
+            transition: all 0.15s linear;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .btn-tutoriales:active {
+            background: rgba(0, 217, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
+            transform: scale3d(0.99, 0.99, 1);
+        }
+
+        /* DIVISOR TÁCTICO CON BARRA DE PROGRESO DE RED */
+        .rank-divider {
+            font-size: 9px;
+            font-family: monospace;
+            color: var(--sub-slate);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+
+        .bar-loader-static {
+            height: 2px;
+            width: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+        .bar-loader-static::after {
+            content: '';
+            position: absolute;
+            left: -100%; top: 0; width: 100%; height: 100%;
+            background: var(--laser-cyan);
+            animation: fluid-load 3s infinite linear;
+        }
+        @keyframes fluid-load { 0% { transform: translate3d(-100%, 0, 0); } 100% { transform: translate3d(200%, 0, 0); } }
+
+        /* CONTENEDOR DE BOTONES CON AUTO-CRECIMIENTO */
+        .faction-buttons-wrapper {
+            display: flex; 
+            flex-direction: column; 
+            gap: 6px;
+            flex-grow: 1; /* Ocupa el espacio restante de forma flexible */
+        }
+        /* BOTONES DE LAS DIVISIONES ACCESIBLES CON CORTE POLIGONAL */
+        .btn-faction {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: clamp(12px, 3.5vh, 16px) 18px; /* Ajuste dinámico de padding vertical */
+            background: rgba(255, 255, 255, 0.01);
+            color: var(--pure-light);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: clamp(11px, 3.5vw, 13px);
+            letter-spacing: 0.5px;
+            box-sizing: border-box;
+            clip-path: polygon(0% 0%, 96% 0%, 100% 20%, 100% 100%, 4% 100%, 0% 80%);
+            position: relative;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-faction::before { content: ''; position: absolute; left: 0; top: 15%; bottom: 15%; width: 2px; background-color: var(--laser-cyan); transform: scaleY(0); transition: transform 0.15s ease; }
+        .btn-faction .arrow { color: var(--sub-slate); font-family: monospace; transition: transform 0.2s ease, color 0.2s ease; }
+        .btn-faction:active { background: rgba(0, 217, 255, 0.04); border-color: rgba(0, 217, 255, 0.3); color: var(--laser-cyan); padding-left: 24px; }
+        .btn-faction:active::before { transform: scaleY(1); }
+        .btn-faction:active .arrow { transform: translate3d(3px, 0, 0); color: var(--laser-cyan); }
+
+        /* PANEL INFERIOR DE RED CON MARCADOR FLUIDO */
+        .status-footer {
+            margin-top: auto; /* Empuja el footer al final siempre */
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            padding-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 9px;
+            font-family: monospace;
+            color: var(--sub-slate);
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+        }
+
+        .terminal-stream { animation: text-pulse-data 4s infinite alternate; }
+        @keyframes text-pulse-data { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+
+        /* TELEMETRÍA PERIMETRAL OCULTABLE EN VENTANAS MUY PEQUEÑAS */
+        .hud-frame-telemetry {
+            position: absolute;
+            top: 0; left: 0; width: 100vw; height: 100dvh; 
+            pointer-events: none;
+            z-index: 3; 
+            box-sizing: border-box;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 8px;
+            color: rgba(0, 217, 255, 0.25); 
+            letter-spacing: 1px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hud-row { display: flex; justify-content: space-between; width: 100%; }
+
+        .hud-bracket {
+            position: absolute;
+            width: 20px; height: 20px;
+            border: 1px solid rgba(0, 217, 255, 0.12);
+        }
+        .h-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+        .h-tr { top: 10px; right: 10px; border-left: none; border-bottom: none; }
+        .h-bl { bottom: 10px; left: 10px; border-right: none; border-top: none; }
+        .h-br { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+
+        .hud-crosshair {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate3d(-50%, -50%, 0);
+            width: 30px; height: 30px;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.15;
+        }
+        .hud-crosshair::before, .hud-crosshair::after { content: ''; position: absolute; background-color: var(--laser-cyan); }
+        .hud-crosshair::before { top: 14px; left: 0; width: 100%; height: 1px; }
+        .hud-crosshair::after { top: 0; left: 14px; width: 1px; height: 100%; }
+
+        /* BARRAS VERTICALES DE CARGA SATELITAL */
+        .hud-v-bar {
+            position: absolute;
+            top: 35dvh; width: 3px; height: 30dvh; 
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 217, 255, 0.08);
+            z-index: 3;
+            pointer-events: none;
+        }
+        .bar-left { left: 15px; }
+        .bar-right { right: 15px; }
+        .hud-v-bar-fill {
+            width: 100%; height: 65%; 
+            background: var(--laser-cyan);
+            box-shadow: 0 0 8px var(--laser-cyan);
+        }
+
+        /* 🚨 MEDIA QUERIES ESTRÍCTAS PARA MODO VENTANA FLOTANTE / MINI DISPOSITIVOS 🚨 */
+        @media (max-width: 360px), (max-height: 500px) {
+            body {
+                background-size: 20px 20px; /* Rejilla más pequeña para ventanas compactas */
+            }
+            .mainframe-container {
+                height: 98dvh;
+                max-height: 98dvh;
+                width: 98vw;
+                padding: 12px 10px;
+                gap: 8px;
+                clip-path: none; /* Desactivamos el corte poligonal para aprovechar todo el espacio útil */
+            }
+            /* Ocultar elementos decorativos externos para limpiar el espacio de la mini ventana */
+            .telemetry-bg-container, .hud-v-bar, .hud-frame-telemetry, .hud-bracket, .hud-crosshair {
+                display: none !important;
+            }
+            .btn-lider {
+                clip-path: none;
+                padding: 10px;
+            }
+            .btn-faction {
+                clip-path: none;
+                padding: 12px 10px;
+            }
+            .btn-tutoriales {
+                clip-path: none;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="system-boot-screen" id="bootScreen">
+        <div class="boot-box" id="bootBox">
+            <div class="boot-corner b-tl"></div>
+            <div class="boot-corner b-tr"></div>
+            <div class="boot-corner b-bl"></div>
+            <div class="boot-corner b-br"></div>
+
+            <button class="btn-boot-start" id="btnStartBoot">[ INICIALIZAR NÚCLEO C.G.M. ]</button>
+
+            <div class="boot-terminal" id="bootTerminal">
+                >> INICIANDO ARRANQUE...<br>
+                >> ENLAZANDO CON EL COMANDO GENERAL DE MESA...
+            </div>
+
+            <div class="boot-meta-status" id="bootMetaStatus">
+                <span>ESTADO: CALIBRANDO MAINFRAME</span>
+                <span id="bootPercent">0%</span>
+            </div>
+
+            <div class="boot-progress-bar" id="bootProgressBar">
+                <div class="boot-progress-fill" id="bootProgressFill"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="telemetry-bg-container">
+        <div class="telemetry-column col-left">
+            <div class="telemetry-stream-feed">
+                A4F9B2C8<br>D3E710F5<br>6B8C9D0E<br>1A2F34BC<br>78DE90F1<br>2345ABCD<br>EF678901<br>BCDE2345<br>FFA01234<br>A4F9B2C8<br>D3E710F5<br>6B8C9D0E
+            </div>
+        </div>
+        <div class="telemetry-column col-right">
+            <div class="telemetry-stream-feed">
+                90F12345<br>ABCDEF67<br>8901BCDE<br>2345FFA0<br>1234A4F9<br>B2C8D3E7<br>10F56B8C<br>9D0E1A2F<br>34BC78DE<br>90F12345<br>ABCDEF67<br>8901BCDE
+            </div>
+        </div>
+    </div>
+
+    <div class="hud-crosshair"></div>
+
+    <div class="hud-bracket h-tl"></div>
+    <div class="hud-bracket h-tr"></div>
+    <div class="hud-bracket h-bl"></div>
+    <div class="hud-bracket h-br"></div>
+
+    <div class="hud-v-bar bar-left"><div class="hud-v-bar-fill"></div></div>
+    <div class="hud-v-bar bar-right"><div class="hud-v-bar-fill" style="height: 40%;"></div></div>
+
+    <div class="hud-frame-telemetry">
+        <div class="hud-row">
+            <span>SYS_LOC: MAINFRAME_BUNKER_01</span>
+            <span>GRID_SEC: [26-06-22]</span>
+        </div>
+        <div class="hud-row">
+            <span>ALT_MANDO // MAIN_HUB_ON</span>
+            <span>SECURE_LINK // TRK_ACTV</span>
+        </div>
+    </div>
+
+    <div class="mainframe-container">
+        <div class="laser-border lb-top"></div>
+        <div class="laser-border lb-bottom"></div>
+
+        <div class="corner-bracket tl"></div>
+        <div class="corner-bracket tr"></div>
+        <div class="corner-bracket bl"></div>
+        <div class="corner-bracket br"></div>
+        <div class="header-shield">
+            <div class="live-data-stream">
+                <span>ID SISTEMA // DATA CENTER-MESA</span>
+                <span class="live-node">RED_SEGURA</span>
+            </div>
+            <h1>COMANDO GENERAL DE MESA</h1>
+            <div class="header-sub-index">⭐⭐⭐⭐⭐</div>
+        </div>
+
+        <div class="supreme-command-zone">
+            <a class="btn-lider" id="btnLiderCommand" href="/altomando/login">
+                <span class="rank-title">★ ALTO MANDO MILITAR ★</span>
+                <span class="rank-subtitle">[ACCESO SOLO PERSONAL AUTORIZADO]</span>
+            </a>
+        </div>
+
+        <!-- NUEVA SECCIÓN DE TUTORIALES PÚBLICOS PARA RECLUTAS -->
+        <div class="instruction-zone">
+            <a class="btn-tutoriales btn-ops" href="/tutoriales">
+                🔰 Centro de Instrucción (Videos) 🔰
+            </a>
+        </div>
+
+        <div class="rank-divider">
+            <div class="bar-loader-static"></div>
+            <span>🎖️DIVISIONES ESPECIALES🎖️</span>
+            <div class="bar-loader-static"></div>
+        </div>
+
+        <div class="faction-buttons-wrapper">
+            <a class="btn-faction btn-ops" href="/academia/login">
+                <span>Academia Militar</span>
+                <span class="arrow">→</span>
+            </a>
+            <a class="btn-faction btn-ops" href="/fuego/login">
+                <span>Operación de datos en desarrollo 🚧</span>
+                <span class="arrow">→</span>
+            </a>
+            <a class="btn-faction btn-ops" href="/agua/login">
+                <span>Operación de datos en desarrollo 🚧</span>
+                <span class="arrow">→</span>
+            </a>
+            <a class="btn-faction btn-ops" href="/tierra/login">
+                <span>Operación de datos en desarrollo 🚧</span>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+
+        <div class="status-footer">
+            <span class="terminal-stream">TELEMETRÍA: EN LÍNEA</span>
+            <span>ESCUDO_v5.0</span>
+        </div>
+    </div>
+
+    <script>
+        let audioCtx = null;
+        let radarInterval = null;
+
+        const logs = [
+            ">> COMPROBANDO INTEGRIDAD DE LA RED... OK",
+            ">> CALIBRANDO OSCILADORES DE AUDIO... OK",
+            ">> ENLAZANDO ENCRIPTACIÓN CRIPTOGRÁFICA AES-256...",
+            ">> VERIFICANDO CREDENCIALES DE ALTO MANDO...",
+            ">> CONTROLADOR EN VERTICAL COMPLETA... OK",
+            ">> ENLACE SEGURO ESTABLECIDO.",
+            ">> CARGANDO INTERFAZ CENTRAL DEL MAINFRAME..."
+        ];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('cmm_nucleo_inicializado') === 'true') {
+                const bootScreen = document.getElementById("bootScreen");
+                bootScreen.style.transition = "none";
+                bootScreen.style.opacity = "0";
+                bootScreen.style.visibility = "hidden";
+                initAudio();
+            }
+        });
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            if (!radarInterval) {
+                playRadarPing(); 
+                radarInterval = setInterval(playRadarPing, 4000); 
+            }
+        }
+
+        function playLogBeep() {
+            if (!audioCtx) return;
+            let osc = audioCtx.createOscillator();
+            let gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(1000, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.03);
+        }
+
+        function playSystemReadySound() {
+            if (!audioCtx) return;
+            let osc = audioCtx.createOscillator();
+            let gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(520, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(180, audioCtx.currentTime + 0.8);
+            gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.8);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.8);
+        }
+
+        document.getElementById('btnStartBoot').addEventListener('click', function() {
+            initAudio(); 
+
+            this.style.display = "none";
+            document.getElementById("bootTerminal").style.display = "block";
+            document.getElementById("bootMetaStatus").style.display = "flex";
+            document.getElementById("bootProgressBar").style.display = "block";
+
+            let logIndex = 0;
+            const terminal = document.getElementById("bootTerminal");
+            const percentText = document.getElementById("bootPercent");
+            const progressFill = document.getElementById("bootProgressFill");
+
+            const logInterval = setInterval(() => {
+                if (logIndex < logs.length) {
+                    terminal.innerHTML += `<br>${logs[logIndex]}`;
+                    playLogBeep(); 
+                    logIndex++;
+                } else {
+                    clearInterval(logInterval);
+                }
+            }, 380);
+
+            let currentPercent = 0;
+            const duration = 2600; 
+            const stepTime = duration / 100;
+
+            const countInterval = setInterval(() => {
+                if (currentPercent < 100) {
+                    currentPercent++;
+                    percentText.innerText = `${currentPercent}%`;
+                    progressFill.style.width = `${currentPercent}%`;
+                } else {
+                    clearInterval(countInterval);
+                    playSystemReadySound(); 
+                }
+            }, stepTime);
+
+            setTimeout(() => {
+                const bootScreen = document.getElementById("bootScreen");
+                bootScreen.style.opacity = "0";
+                setTimeout(() => {
+                    bootScreen.style.visibility = "hidden";
+                    sessionStorage.setItem('cmm_nucleo_inicializado', 'true');
+                    if (!radarInterval) {
+                        playRadarPing(); 
+                        radarInterval = setInterval(playRadarPing, 4000); 
+                    }
+                }, 600);
+            }, duration + 200);
+        });
+
+        function playRadarPing() {
+            if (!audioCtx) return;
+            try {
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(140, audioCtx.currentTime); 
+                osc.frequency.exponentialRampToValueAtTime(70, audioCtx.currentTime + 1.6);
+                gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.8);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 1.8);
+            } catch (err) {}
+        }
+
+        function playOpsClick(e) {
+            initAudio();
+            e.preventDefault();
+            const targetUrl = this.getAttribute('href');
+            let osc = audioCtx.createOscillator();
+            let gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(1400, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.04);
+            setTimeout(() => { window.location.href = targetUrl; }, 50);
+        }
+
+        function playLiderClick(e) {
+            initAudio();
+            e.preventDefault();
+            const targetUrl = this.getAttribute('href');
+            let osc1 = audioCtx.createOscillator();
+            let gain1 = audioCtx.createGain();
+            osc1.type = 'sine';
+            osc1.frequency.setValueAtTime(1600, audioCtx.currentTime);
+            gain1.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gain1.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
+            osc1.connect(gain1);
+            gain1.connect(audioCtx.destination);
+            osc1.start();
+            osc1.stop(audioCtx.currentTime + 0.03);
+
+            setTimeout(() => {
+                let osc2 = audioCtx.createOscillator();
+                let gain2 = audioCtx.createGain();
+                osc2.type = 'sine';
+                osc2.frequency.setValueAtTime(2100, audioCtx.currentTime); 
+                gain2.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
+                osc2.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc2.start();
+                osc2.stop(audioCtx.currentTime + 0.03);
+            }, 35);
+            setTimeout(() => { window.location.href = targetUrl; }, 100);
+        }
+
+        document.body.addEventListener('touchstart', initAudio, {passive: true});
+        document.body.addEventListener('click', initAudio);
+        
+        // Selecciona todos los botones tácticos dinámicamente incluyendo el de tutoriales
+        document.querySelectorAll('.btn-ops').forEach(btn => { btn.addEventListener('click', playOpsClick); });
+        document.getElementById('btnLiderCommand').addEventListener('click', playLiderClick);
+    </script>
+</body>
+</html>

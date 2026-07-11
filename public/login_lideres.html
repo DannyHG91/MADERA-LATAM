@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <!-- Forzado de escala estricto para evitar zoom táctil y fijar vista móvil tipo App nativa vertical -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>[LOGIN LÍDERES]</title>
+    <style>
+        /* Variables de Sistema del Alto Mando: Oro de Prestigio Moderno y Negro Sigilo */
+        :root {
+            --stealth-dark: #020407;
+            --glass-core: rgba(10, 16, 26, 0.55); /* Cristal de búnker moderno translúcido */
+            --gold-prestige: #dcae3b;
+            --gold-glow: rgba(220, 174, 59, 0.18); /* Iluminación ambiental de fibra óptica */
+            --laser-cyan: #00d9ff;
+            --sub-slate: #56687a;
+            --pure-light: #f1f5f9;
+            --alert-red: #ff4a4a;
+            --grid-line: rgba(220, 174, 59, 0.015);
+        }
+
+        /* INGENIERÍA DE PANTALLA COMPLETA VERTICAL REAL EN MÓVILES (ADAPTABLE A BARRAS DE NAVEGACIÓN) */
+        html, body {
+            width: 100vw;
+            height: 100dvh; /* Forzado dinámico contra barras inferiores */
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: var(--stealth-dark);
+        }
+
+        body {
+            color: var(--pure-light);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            touch-action: none;
+            position: relative;
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 40px 40px; /* Rejilla fina moderna */
+            background-position: center;
+
+            /* Bloqueo estricto de resaltado para simular comportamiento de App Nativa */
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        /* FORZADO DE RENDERIZADO POR GPU PARA VELOCIDAD ESTRICTA DE 60 FPS */
+        .mainframe-container, .form-input, .btn-submit, .telemetry-stream-feed, .alert-box, .hud-v-bar-fill, .laser-border {
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+            will-change: transform, opacity;
+        }
+        /* CAPA DE DATOS EN CASCADA CIEGA / TELEMETRY FEED (60 FPS) */
+        .telemetry-bg-container {
+            position: absolute;
+            top: 0; left: 0; width: 100vw; height: 100dvh;
+            z-index: 2;
+            pointer-events: none;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            box-sizing: border-box;
+            padding: 0 40px; /* Separado del chasis central */
+        }
+
+        /* Columnas de Datos Flotantes */
+        .telemetry-column {
+            width: 50px;
+            font-family: monospace;
+            font-size: 8px;
+            color: var(--gold-prestige);
+            opacity: 0.06; /* Intensidad baja y sigilosa estilo código encriptado */
+            line-height: 1.4;
+            letter-spacing: 1px;
+            word-break: break-all;
+            display: flex;
+            flex-direction: column;
+            white-space: nowrap;
+        }
+
+        /* Flujo continuo ascendente forzado por hardware */
+        .telemetry-stream-feed {
+            animation: cascade-up 12s infinite linear;
+        }
+        
+        /* Variaciones asíncronas de tiempo para romper la simetría web */
+        .col-left .telemetry-stream-feed { animation-duration: 14s; }
+        .col-right .telemetry-stream-feed { animation-duration: 10s; animation-delay: -2s; }
+
+        @keyframes cascade-up {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(0, -33.33%, 0); }
+        }
+                /* CONSOLA CENTRAL COMPACTA AUTOADAPTABLE AL NAVEGADOR MÓVIL */
+        .mainframe-container {
+            background: rgba(7, 13, 22, 0.55); 
+            border: 1px solid rgba(220, 174, 59, 0.25);
+            padding: 24px 20px; 
+            width: 96vw;          
+            max-width: 440px;
+            height: 90dvh;         
+            max-height: 90dvh;     
+            box-sizing: border-box;
+            
+            /* Sombra difusa holográfica estilo fibra óptica */
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.9), 0 0 30px var(--gold-glow);
+            
+            /* CORTE POLIGONAL ASIMÉTRICO MODERNO DE QUINTA GENERACIÓN */
+            clip-path: polygon(0% 0%, 92% 0%, 100% 8%, 100% 100%, 8% 100%, 0% 92%);
+            
+            position: relative;
+            z-index: 5;
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            gap: 12px;              
+        }
+
+        /* LÁSER PERIMETRAL DE AUTORIDAD EN MODO VAIVÉN / PING-PONG (60 FPS) */
+        .laser-border {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, var(--gold-prestige), transparent);
+            z-index: 6;
+        }
+        /* Añadido 'alternate' para que la barra regrese fluidamente en lugar de desaparecer */
+        .lb-top { top: 0; left: 0; width: 100%; height: 1px; animation: laser-h 4s infinite ease-in-out alternate; }
+        .lb-bottom { bottom: 0; left: 0; width: 100%; height: 1px; animation: laser-h-rev 4s infinite ease-in-out alternate; }
+
+        /* Trayectos optimizados en 3D para rebote limpio en los bordes del chasis */
+        @keyframes laser-h { 0% { transform: translate3d(-100%, 0, 0); } 100% { transform: translate3d(100%, 0, 0); } }
+        @keyframes laser-h-rev { 0% { transform: translate3d(100%, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
+
+        /* Ángulos de Titanio para el Enfoque de Retícula */
+        .corner-bracket {
+            position: absolute;
+            width: 14px; height: 14px;
+            border: 2px solid rgba(220, 174, 59, 0.4);
+            z-index: 7;
+        }
+        .tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+        .bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+        .br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+        /* CABECERA PRIVADA SANITIZADA */
+        .header-shield {
+            text-align: center;
+            margin-bottom: 5px;
+            border-bottom: 1px solid rgba(220, 174, 59, 0.15);
+            padding-bottom: 12px;
+        }
+
+        .sys-badge {
+            font-size: 10px;
+            font-family: monospace;
+            color: var(--gold-prestige);
+            letter-spacing: 3px;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 19px;
+            font-weight: 800;
+            margin: 6px 0 0 0;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--pure-light);
+        }
+
+        /* CAMPOS DEL FORMULARIO HUD MILITAR CON FUENTES MONO-ESTILIZADAS */
+        .form-group {
+            margin-bottom: 5px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 10px;
+            font-family: monospace;
+            color: var(--sub-slate);
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* ELEMENTO SELECTOR Y CAMPO DE TEXTO SIN LAG BAJO ESTRES */
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            background: #020407; 
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 2px;
+            color: var(--pure-light);
+            font-size: 13px;
+            font-family: monospace;
+            letter-spacing: 1px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.15s linear, box-shadow 0.15s linear;
+            -webkit-appearance: none; 
+            appearance: none;
+        }
+
+        select.form-input {
+            cursor: pointer;
+            background-image: linear-gradient(45deg, transparent 50%, var(--gold-prestige) 50%), linear-gradient(135deg, var(--gold-prestige) 50%, transparent 50%);
+            background-position: calc(100% - 20px) calc(1em + 4px), calc(100% - 15px) calc(1em + 4px);
+            background-size: 5px 5px, 5px 5px;
+            background-repeat: no-repeat;
+        }
+
+        select.form-input option {
+            background-color: #0c121b;
+            color: var(--pure-light);
+            padding: 10px;
+        }
+
+        .form-input:focus {
+            border-color: var(--gold-prestige);
+            box-shadow: 0 0 15px rgba(220, 174, 59, 0.15);
+        }
+
+        /* BOTÓN DE VALIDACIÓN MODERNO CON CORTE GEOMÉTRICO ASIMÉTRICO */
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, rgba(220, 174, 59, 0.03), rgba(220, 174, 59, 0.08));
+            border: 1px solid var(--gold-prestige);
+            color: var(--gold-prestige);
+            font-size: 12px;
+            font-family: monospace;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-sizing: border-box;
+            margin-top: 10px;
+            -webkit-tap-highlight-color: transparent;
+            
+            /* Bisel moderno a juego con el chasis */
+            clip-path: polygon(0% 0%, 94% 0%, 100% 25%, 100% 100%, 6% 100%, 0% 75%);
+            transition: background-color 0.15s linear, color 0.15s linear;
+        }
+
+        .btn-submit:active {
+            background: var(--gold-prestige);
+            color: var(--stealth-dark);
+            transform: scale3d(0.99, 0.99, 1);
+        }
+
+        .alert-box {
+            display: none;
+            margin-top: 5px;
+            background: rgba(255, 74, 74, 0.04);
+            border: 1px solid var(--alert-red);
+            border-left: 3px solid var(--alert-red);
+            color: var(--alert-red);
+            font-size: 11px;
+            font-family: monospace;
+            padding: 12px;
+            text-align: left;
+            line-height: 1.4;
+            animation: alert-appear 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes alert-appear {
+            from { opacity: 0; transform: translate3d(0, 5px, 0); }
+            to { opacity: 1; transform: translate3d(0, 0, 0); }
+        }
+
+        .btn-back {
+            display: block;
+            text-align: center;
+            font-size: 10px;
+            font-family: monospace;
+            color: var(--sub-slate);
+            text-decoration: none;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+        .btn-back:active { color: var(--laser-cyan); }
+
+        /* TELEMETRÍA PERIMETRAL AJUSTADA AL DINÁMICO DEL MENÚ MÓVIL */
+        .hud-frame-telemetry {
+            position: absolute;
+            top: 0; left: 0; width: 100vw; height: 100dvh; 
+            pointer-events: none;
+            z-index: 3; 
+            box-sizing: border-box;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 8px;
+            color: rgba(220, 174, 59, 0.25); 
+            letter-spacing: 1px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hud-row { display: flex; justify-content: space-between; width: 100%; }
+
+        .hud-bracket {
+            position: absolute;
+            width: 20px; height: 20px;
+            border: 1px solid rgba(220, 174, 59, 0.12);
+        }
+        .h-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+        .h-tr { top: 10px; right: 10px; border-left: none; border-bottom: none; }
+        .h-bl { bottom: 10px; left: 10px; border-right: none; border-top: none; }
+        .h-br { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+
+        .hud-crosshair {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate3d(-50%, -50%, 0);
+            width: 30px; height: 30px;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.15;
+        }
+        .hud-crosshair::before, .hud-crosshair::after { content: ''; position: absolute; background-color: var(--gold-prestige); }
+        .hud-crosshair::before { top: 14px; left: 0; width: 100%; height: 1px; }
+        .hud-crosshair::after { top: 0; left: 14px; width: 1px; height: 100%; }
+
+        /* BARRAS VERTICALES DE CARGA SATELITAL RECALCULADAS */
+        .hud-v-bar {
+            position: absolute;
+            top: 35dvh; width: 3px; height: 30dvh; 
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(220, 174, 59, 0.08);
+            z-index: 3;
+            pointer-events: none;
+        }
+        .bar-left { left: 15px; }
+        .bar-right { right: 15px; }
+        .hud-v-bar-fill {
+            width: 100%; height: 65%; 
+            background: var(--gold-prestige);
+            box-shadow: 0 0 8px var(--gold-prestige);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CAPA DE DATOS EN CASCADA CIEGA ASÍNCRONA (TELEMETRÍA DE MARCOS) -->
+    <div class="telemetry-bg-container">
+        <!-- Columna Izquierda Furtiva -->
+        <div class="telemetry-column col-left">
+            <div class="telemetry-stream-feed">
+                A4F9B2C8<br>D3E710F5<br>6B8C9D0E<br>1A2F34BC<br>78DE90F1<br>2345ABCD<br>EF678901<br>BCDE2345<br>FFA01234<br>A4F9B2C8<br>D3E710F5<br>6B8C9D0E
+            </div>
+        </div>
+        <!-- Columna Derecha Furtiva -->
+        <div class="telemetry-column col-right">
+            <div class="telemetry-stream-feed">
+                90F12345<br>ABCDEF67<br>8901BCDE<br>2345FFA0<br>1234A4F9<br>B2C8D3E7<br>10F56B8C<br>9D0E1A2F<br>34BC78DE<br>90F12345<br>ABCDEF67<br>8901BCDE
+            </div>
+        </div>
+    </div>
+
+    <!-- MIRA DE CENTRADO TÁCTICO HUD -->
+    <div class="hud-crosshair"></div>
+
+    <!-- TELEMETRÍA Y MARCAS DIGITALES PERIMETRALES -->
+    <div class="hud-bracket h-tl"></div>
+    <div class="hud-bracket h-tr"></div>
+    <div class="hud-bracket h-bl"></div>
+    <div class="hud-bracket h-br"></div>
+    
+    <!-- BARRAS SATELITALES LATERALES CONTRA MARCOS VACÍOS -->
+    <div class="hud-v-bar bar-left"><div class="hud-v-bar-fill"></div></div>
+    <div class="hud-v-bar bar-right"><div class="hud-v-bar-fill" style="height: 40%;"></div></div>
+
+    <div class="hud-frame-telemetry">
+        <div class="hud-row">
+            <span>SYS_LOC: MAINFRAME_BUNKER_01</span>
+            <span>GRID_SEC: [26-06-22]</span>
+        </div>
+        <div class="hud-row">
+            <span>ALT_MANDO // VAIVÉN_LÁSER_ON</span>
+            <span>SECURE_LINK // TRK_ACTV</span>
+        </div>
+    </div>
+
+    <div class="mainframe-container">
+        <!-- Haz de luz perimetral en oro con rebote alterno -->
+        <div class="laser-border lb-top"></div>
+        <div class="laser-border lb-bottom"></div>
+
+        <!-- Ángulos estructurales fijados -->
+        <div class="corner-bracket tl"></div>
+        <div class="corner-bracket tr"></div>
+        <div class="corner-bracket bl"></div>
+        <div class="corner-bracket br"></div>
+
+        <!-- Cabecera de Alto Rango -->
+        <div class="header-shield">
+            <div class="sys-badge">✦ AUTENTICACIÓN OPERATIVA ✦</div>
+            <h1>ALTO MANDO GENERAL DE MESA</h1>
+        </div>
+
+        <!-- Formulario Táctico con Menú de Selección Desplegable -->
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="user">SELECCIONAR FACCIÓN MILITAR</label>
+                <select class="form-input" id="user" required>
+                    <option value="" disabled selected>SELECCIONE SU DIVISIÓN</option>
+                    <option value="lider_academia">Academia Militar</option>
+                    <option value="lider_fuego">Comando Táctico Fuego</option>
+                    <option value="lider_agua">Fuerzas Anfibias Agua</option>
+                    <option value="lider_tierra">Infantería Blindada Tierra</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="pass">LLAVE CRIPTOGRÁFICA DE ACCESO</label>
+                <input type="password" class="form-input" id="pass" required placeholder="••••••••">
+            </div>
+
+            <button type="submit" class="btn-submit">VERIFICAR MANDATO</button>
+        </form>
+
+        <!-- Mensajes de Alerta Crítica -->
+        <div id="errorMessage" class="alert-box"></div>
+
+        <a href="/" class="btn-back">← ABORTAR OPERACIÓN / VOLVER AL INICIO</a>
+    </div>
+        <!-- CONTROLADOR JAVASCRIPT Y MOTOR DE AUDIO DEL ALTO MANDO -->
+    <script>
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        // Tono: Enlace exitoso (Pulso doble de alta frecuencia)
+        function playSuccessSound() {
+            initAudio();
+            let osc1 = audioCtx.createOscillator();
+            let gain1 = audioCtx.createGain();
+            osc1.type = 'sine';
+            osc1.frequency.setValueAtTime(1500, audioCtx.currentTime);
+            gain1.gain.setValueAtTime(0.06, audioCtx.currentTime);
+            gain1.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+            osc1.connect(gain1);
+            gain1.connect(audioCtx.destination);
+            osc1.start();
+            osc1.stop(audioCtx.currentTime + 0.04);
+
+            setTimeout(() => {
+                let osc2 = audioCtx.createOscillator();
+                let gain2 = audioCtx.createGain();
+                osc2.type = 'sine';
+                osc2.frequency.setValueAtTime(1900, audioCtx.currentTime);
+                gain2.gain.setValueAtTime(0.06, audioCtx.currentTime);
+                gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+                osc2.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc2.start();
+                osc2.stop(audioCtx.currentTime + 0.04);
+            }, 40);
+        }
+
+        // Tono: Acceso Denegado (Pulso descendente de advertencia)
+        function playFailureSound() {
+            initAudio();
+            let osc = audioCtx.createOscillator();
+            let gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(700, audioCtx.currentTime);
+            osc.frequency.linearRampToValueAtTime(250, audioCtx.currentTime + 0.15);
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.15);
+        }
+
+        // Escucha táctil para habilitar el motor de audio en teléfonos móviles
+        document.body.addEventListener('touchstart', initAudio, {passive: true});
+
+        // Envío seguro de credenciales al servidor de Express
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            initAudio();
+
+            const userVal = document.getElementById('user').value;
+            // El uso de .trim() purga espacios invisibles accidentales al escribir la clave
+            const passVal = document.getElementById('pass').value.trim();
+            const errorDiv = document.getElementById('errorMessage');
+
+            errorDiv.style.opacity = "0";
+            errorDiv.style.display = "none";
+            errorDiv.innerText = "";
+
+            fetch('/api/login-lideres', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user: userVal, pass: passVal })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    playSuccessSound();
+                    // Breve retraso para oír el tono de éxito antes de la redirección
+                    setTimeout(() => { window.location.href = data.redirect; }, 120);
+                } else {
+                    playFailureSound();
+                    errorDiv.innerText = `⚠️ [DENEGADO]: ${data.message}`;
+                    errorDiv.style.display = "block";
+                }
+            })
+            .catch(() => {
+                playFailureSound();
+                errorDiv.innerText = "🚨 [FALLA DE ENLACE]: Mainframe central inaccesible.";
+                errorDiv.style.display = "block";
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[ PROTOCOLO AGUA ]</title>
+    <style>
+        body { font-family: 'Courier New', Courier, monospace; background: #020609; color: #00ffff; padding: 40px; margin: 0; box-sizing: border-box; }
+        body::before { content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(0, 255, 255, 0.03), rgba(0, 255, 0, 0.01), rgba(255, 0, 0, 0.02)); z-index: 10; background-size: 100% 4px, 6px 100%; pointer-events: none; }
+        .header { border-bottom: 2px solid #00ffff; padding-bottom: 15px; margin-bottom: 30px; text-shadow: 0 0 8px #00ffff; }
+        .intel-box { background: #050f15; border: 1px solid #00ffff; padding: 25px; margin-top: 20px; line-height: 1.6; }
+        .warning-text { color: #020609; background: #00ffff; display: inline-block; padding: 3px 8px; font-weight: bold; text-transform: uppercase; font-size: 13px; margin-bottom: 15px; }
+        .logout-btn { background: transparent; border: 1px solid #00ffff; color: #00ffff; padding: 12px 25px; cursor: pointer; font-weight: bold; font-family: monospace; text-transform: uppercase; margin-top: 40px; transition: all 0.2s; }
+        .logout-btn:hover { background: #00ffff; color: #020609; box-shadow: 0 0 15px #00ffff; }
+        h1, h3 { margin: 0 0 10px 0; text-transform: uppercase; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>[ MAINFRAME DE INTELIGENCIA: DIVISION AGUA ]</h1>
+        <div>NIVEL DE ENCRIPCIÓN: DELTA-4 // SECTOR SUBMARINO</div>
+    </div>
+
+    <div class="warning-text">⚠️ Transmisión Hidrográfica Segura</div>
+
+    <h3>Estrategias Náuticas y Reportes Hidroeléctricos</h3>
+    <div class="intel-box">
+        <p><strong>[ESTADO GENERAL]:</strong> Compuertas de presión profunda aseguradas. El sonar pasivo no registra anomalías en los límites navales exteriores.</p>
+        <hr style="border-color: #00ffff; margin: 20px 0;">
+        <p><strong>MANUAL DE PROTOCOLO:</strong></p>
+        <ul>
+            <li>[EXPLORACIÓN]: Los grupos de reconocimiento submarino deben mantener silencio de radio absoluto de 2200 a 0200 horas.</li>
+            <li>[SUMINISTROS]: Monitorear los tanques de purificación del sector central cada 6 horas térmicas.</li>
+            <li>[SEGURIDAD]: Todo código de autenticación externa interceptado debe reportarse directamente al búnker central del líder.</li>
+        </ul>
+    </div>
+
+    <div class="intel-box" style="border-style: dashed;">
+        <p>// ESPACIO DE ALMACENAMIENTO ADICIONAL PARA LA DIVISIÓN AGUA //</p>
+        <p style="color: #246a73;"><small>Escribe aquí las directivas personalizadas para tus tropas de agua...</small></p>
+    </div>
+
+    <button onclick="window.location.href='/logout'" class="logout-btn">❌ Desconectar Terminal</button>
+
+</body>
+</html>

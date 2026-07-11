@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[ PROTOCOLO TIERRA ]</title>
+    <style>
+        body { font-family: 'Courier New', Courier, monospace; background: #090602; color: #ffaa00; padding: 40px; margin: 0; box-sizing: border-box; }
+        body::before { content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 170, 0, 0.03), rgba(255, 0, 0, 0.01), rgba(0, 0, 255, 0.02)); z-index: 10; background-size: 100% 4px, 6px 100%; pointer-events: none; }
+        .header { border-bottom: 2px solid #ffaa00; padding-bottom: 15px; margin-bottom: 30px; text-shadow: 0 0 8px #ffaa00; }
+        .intel-box { background: #150f05; border: 1px solid #ffaa00; padding: 25px; margin-top: 20px; line-height: 1.6; }
+        .warning-text { color: #090602; background: #ffaa00; display: inline-block; padding: 3px 8px; font-weight: bold; text-transform: uppercase; font-size: 13px; margin-bottom: 15px; }
+        .logout-btn { background: transparent; border: 1px solid #ffaa00; color: #ffaa00; padding: 12px 25px; cursor: pointer; font-weight: bold; font-family: monospace; text-transform: uppercase; margin-top: 40px; transition: all 0.2s; }
+        .logout-btn:hover { background: #ffaa00; color: #090602; box-shadow: 0 0 15px #ffaa00; }
+        h1, h3 { margin: 0 0 10px 0; text-transform: uppercase; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>[ MAINFRAME DE INTELIGENCIA: DIVISION TIERRA ]</h1>
+        <div>NIVEL DE ENCRIPCIÓN: DELTA-5 // SECTOR BÚNKER GEOLÓGICO</div>
+    </div>
+
+    <div class="warning-text">⚠️ Perímetro Sísmico Protegido</div>
+
+    <h3>Fortificaciones e Informes de Excavación Táctica</h3>
+    <div class="intel-box">
+        <p><strong>[ESTADO GENERAL]:</strong> Muros exteriores reforzados estructuralmente al 100%. Sensores geofísicos estables sin indicios de excavaciones enemigas externas.</p>
+        <hr style="border-color: #ffaa00; margin: 20px 0;">
+        <p><strong>REGISTRO DE OPERACIONES:</strong></p>
+        <ul>
+            <li>[BLINDAJE]: Activar los escudos de frecuencia terrestre durante los relevos nocturnos automáticos.</li>
+            <li>[RECURSOS]: Las reservas de energía minera del bloque norte están asignadas al desarrollo de defensas.</li>
+            <li>[RECLUTAS]: El adiestramiento físico e informático se mantiene bajo estricta supervisión en el ala subterránea.</li>
+        </ul>
+    </div>
+
+    <div class="intel-box" style="border-style: dashed;">
+        <p>// ESPACIO DE ALMACENAMIENTO ADICIONAL PARA LA DIVISIÓN TIERRA //</p>
+        <p style="color: #735118;"><small>Escribe aquí las directivas personalizadas para tus tropas de tierra...</small></p>
+    </div>
+
+    <button onclick="window.location.href='/logout'" class="logout-btn">❌ Desconectar Terminal</button>
+
+</body>
+</html>

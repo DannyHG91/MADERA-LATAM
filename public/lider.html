@@ -2,510 +2,340 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <!-- Forzado de escala estricto para evitar zoom táctil y fijar vista móvil tipo App nativa vertical -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>[ TOKEN LIDER ]</title>
+    <title>[ TOKEN LÍDER ] - ALTO MANDO</title>
 
     <style>
-        /* Variables Operativas del Alto Mando: Oro de Prestigio Preponderante y Negro Sigilo */
+        /* Variables Operativas Unificadas: Ecosistema Index + VIP Oro */
         :root {
-            --stealth-dark: #020407;
-            --glass-core: rgba(7, 13, 22, 0.55); /* Cristal moderno más limpio y translúcido */
-            --gold-prestige: #dcae3b;
-            --gold-glow: rgba(220, 174, 59, 0.18); /* Iluminación ambiental de fibra óptica */
+            --bg: #06110A;
+            --bg-radial: #0a1f13;
+            --panel: rgba(5, 12, 8, 0.75);
+            --green: #3DDA72;
             --laser-cyan: #00d9ff;
-            --sub-slate: #56687a;
+            --gold: #dcae3b;
+            --gold2: #ffe082;
+            --gold-dark: #8a6c22;
             --pure-light: #f1f5f9;
             --alert-red: #ff4a4a;
-            --grid-line: rgba(220, 174, 59, 0.015);
+            --sub-slate: #56687a;
+            --grid-line: rgba(61, 218, 114, 0.03);
         }
 
-        /* INGENIERÍA DE PANTALLA COMPLETA VERTICAL REAL (ADAPTABLE A BARRAS DE NAVEGACIÓN MÓVIL) */
         html, body {
-            width: 100vw;
-            height: 100dvh; /* Forzado dinámico estricto contra barras inferiores de navegadores móviles */
+            width: 100%;
+            height: 100dvh;
             margin: 0;
             padding: 0;
             overflow: hidden; 
-            background-color: var(--stealth-dark);
+            background-color: var(--bg);
         }
 
         body {
-            background-color: var(--stealth-dark);
             color: var(--pure-light);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            touch-action: none; /* Bloquea el scroll elástico de iOS y rebotes de Android */
+            touch-action: none;
             position: relative;
+            background: radial-gradient(circle at center, var(--bg-radial) 0%, #020604 80%);
             background-image: 
                 linear-gradient(var(--grid-line) 1px, transparent 1px),
                 linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-            background-size: 40px 40px; /* Rejilla fina áurea */
+            background-size: 50px 50px;
             background-position: center;
 
-            /* Blindaje total contra resaltar textos al presionar la pantalla */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
         }
 
-        /* INGENIERÍA DE HARDWARE EN ANIMACIONES DE ALTA TASA DE REFRESO (60 FPS) */
+        /* HARDWARE ACCELERATION */
         .mainframe-container, .laser-border, .token-display-box, .telemetry-stream-feed, .hud-v-bar-fill {
             -webkit-transform: translate3d(0,0,0);
             transform: translate3d(0,0,0);
             will-change: transform, opacity;
         }
-        /* CAPA DE DATOS EN CASCADA CIEGA / TELEMETRY FEED ÁUREO (60 FPS) */
+
+        /* TELEMETRÍA DE FONDO (VERDE TÁCTICO) */
         .telemetry-bg-container {
             position: absolute;
-            top: 0; left: 0; width: 100vw; height: 100dvh;
+            inset: 0;
             z-index: 2;
             pointer-events: none;
             overflow: hidden;
             display: flex;
             justify-content: space-between;
-            box-sizing: border-box;
-            padding: 0 40px; /* Separación simétrica de la consola central */
+            padding: 0 clamp(10px, 4vw, 40px);
         }
 
-        /* Columnas de Datos Flotantes Furtivas del Alto Mando */
         .telemetry-column {
             width: 50px;
             font-family: monospace;
             font-size: 8px;
-            color: var(--gold-prestige);
-            opacity: 0.06; /* Intensidad baja de sigilo avanzado */
-            line-height: 1.4;
-            letter-spacing: 1px;
+            color: var(--green);
+            opacity: 0.08;
+            line-height: 1.5;
+            letter-spacing: 2px;
             word-break: break-all;
             display: flex;
             flex-direction: column;
             white-space: nowrap;
         }
 
-        /* Flujo continuo ascendente forzado por hardware de GPU */
-        .telemetry-stream-feed {
-            animation: cascade-up 12s infinite linear;
-        }
-        
-        /* Rompimiento de simetría web con variaciones asíncronas de tiempo */
-        .col-left .telemetry-stream-feed { animation-duration: 14s; }
-        .col-right .telemetry-stream-feed { animation-duration: 10s; animation-delay: -2s; }
+        .telemetry-stream-feed { animation: cascade-up 15s infinite linear; }
+        .col-left .telemetry-stream-feed { animation-duration: 18s; }
+        .col-right .telemetry-stream-feed { animation-duration: 12s; animation-delay: -3s; }
 
         @keyframes cascade-up {
             0% { transform: translate3d(0, 0, 0); }
             100% { transform: translate3d(0, -33.33%, 0); }
         }
-
-        /* CONSOLA CENTRAL DEL COMANDANTE EN JEFE (INTERFAZ COMPACTA) */
-        .mainframe-container {
-            background: rgba(7, 13, 22, 0.55); /* Cristal más limpio y translúcido */
-            border: 1px solid rgba(220, 174, 59, 0.2);
-            padding: 24px 20px;
-            width: 96vw;          /* Ajustado al 96% del ancho útil */
-            max-width: 440px;
-            height: 90dvh;         /* Forzado dinámico para esquivar menús del navegador móvil */
-            max-height: 90dvh;
-            box-sizing: border-box;
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.85), 0 0 30px var(--gold-glow);
-            
-            /* CORTE POLIGONAL ASIMÉTRICO MODERNO DE QUINTA GENERACIÓN */
-            clip-path: polygon(0% 0%, 92% 0%, 100% 8%, 100% 100%, 8% 100%, 0% 92%);
-            
+                /* WRAPPER PARA PROTEGER LAS ESQUINAS */
+        .mainframe-wrapper {
             position: relative;
+            width: 92vw;
+            max-width: 440px;
             z-index: 5;
+        }
+
+        .mainframe-bg {
+            position: absolute;
+            inset: 0;
+            background: var(--panel);
+            border: 1px solid rgba(220, 174, 59, 0.2);
+            box-shadow: 
+                inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+                inset 0 0 20px rgba(220, 174, 59, 0.05),
+                0 30px 60px rgba(0, 0, 0, 0.9), 
+                0 0 40px rgba(220, 174, 59, 0.1);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
+            clip-path: polygon(0% 0%, 94% 0%, 100% 6%, 100% 100%, 6% 100%, 0% 94%);
+            z-index: -1;
+            /* SELLO DE CONTENCIÓN PARA LÁSERES */
+            overflow: hidden; 
+        }
+
+        .mainframe-container {
+            padding: clamp(25px, 5vw, 40px) clamp(20px, 4vw, 30px);
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Alineación compacta centralizada */
-            gap: 12px;              /* Espaciado interno armónico */
+            justify-content: center;
+            gap: 14px;
         }
-                /* LÁSER PERIMETRAL DE ORO EN MODO VAIVÉN / PING-PONG (60 FPS) */
+
+        /* LÁSER PERIMETRAL ORO CONTENIDO */
         .laser-border {
             position: absolute;
-            background: linear-gradient(90deg, transparent, var(--gold-prestige), transparent);
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
             z-index: 6;
+            pointer-events: none;
+            opacity: 0.6;
         }
-        /* Ajuste elástico simétrico a 4s: Las barras rebotan continuamente en forma de vaivén */
-        .lb-top { top: 0; left: 0; width: 100%; height: 1px; animation: laser-h 4s infinite ease-in-out alternate; }
-        .lb-bottom { bottom: 0; left: 0; width: 100%; height: 1px; animation: laser-h-rev 4s infinite ease-in-out alternate; }
+        .lb-top { top: 0; left: 0; width: 100%; height: 1px; animation: laser-h 6s infinite ease-in-out alternate; }
+        .lb-bottom { bottom: 0; left: 0; width: 100%; height: 1px; animation: laser-h-rev 6s infinite ease-in-out alternate; }
 
-        @keyframes laser-h { 0% { transform: translate3d(-100%, 0, 0); } 100% { transform: translate3d(100%, 0, 0); } }
-        @keyframes laser-h-rev { 0% { transform: translate3d(100%, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
+        @keyframes laser-h { 0% { transform: translate3d(-100%, 0, 0); opacity: 0; } 50% { opacity: 1; } 100% { transform: translate3d(100%, 0, 0); opacity: 0; } }
+        @keyframes laser-h-rev { 0% { transform: translate3d(100%, 0, 0); opacity: 0; } 50% { opacity: 1; } 100% { transform: translate3d(-100%, 0, 0); opacity: 0; } }
 
-        /* Ángulos Estructurales de Oro Militar */
+        /* ÁNGULOS ESTRUCTURALES ORO */
         .corner-bracket {
             position: absolute;
             width: 14px; height: 14px;
-            border: 2px solid rgba(220, 174, 59, 0.4);
+            border: 2px solid rgba(220, 174, 59, 0.5);
             z-index: 7;
+            pointer-events: none;
         }
-        .tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
-        .tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
-        .bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
-        .br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+        .tl { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+        .tr { top: -2px; right: -2px; border-left: none; border-bottom: none; }
+        .bl { bottom: -2px; left: -2px; border-right: none; border-top: none; }
+        .br { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+        /* INSIGNIA HOLOGRÁFICA VIP */
+        .vip-crest {
+            width: 35px; height: 35px;
+            margin: 0 auto 5px;
+            border: 1px solid var(--gold);
+            transform: rotate(45deg);
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: inset 0 0 10px rgba(220, 174, 59, 0.2), 0 0 15px rgba(220, 174, 59, 0.4);
+            animation: crest-pulse 4s infinite ease-in-out alternate;
+        }
+        .vip-crest::before {
+            content: '✦'; transform: rotate(-45deg); color: var(--gold2); font-size: 16px; text-shadow: 0 0 10px var(--gold2);
+        }
+        @keyframes crest-pulse {
+            0% { box-shadow: inset 0 0 5px rgba(220, 174, 59, 0.1), 0 0 10px rgba(220, 174, 59, 0.2); }
+            100% { box-shadow: inset 0 0 15px rgba(220, 174, 59, 0.4), 0 0 25px rgba(220, 174, 59, 0.6); }
+        }
 
         /* CABECERA DE ALTO RANGO */
-        .header-shield {
-            text-align: center;
-            margin-bottom: 5px;
-            border-bottom: 1px solid rgba(220, 174, 59, 0.15);
-            padding-bottom: 12px;
-        }
-
-        .sys-badge {
-            font-size: 10px;
-            font-family: monospace;
-            color: var(--gold-prestige);
-            letter-spacing: 3px;
-            font-weight: bold;
-        }
-
-        h1 {
-            font-size: 22px;
-            font-weight: 800;
-            margin: 6px 0 0 0;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: var(--pure-light);
-        }
-
-        .faction-title {
-            font-size: 13px;
-            color: var(--laser-cyan);
-            letter-spacing: 1.5px;
-            font-family: monospace;
-            margin-top: 5px;
-            font-weight: 600;
-        }
-
-        /* BOTÓN MODERNO DE GENERACIÓN CON CORTE GEOMÉTRICO ASIMÉTRICO */
+        .header-shield { text-align: center; margin-bottom: 5px; border-bottom: 1px solid rgba(220, 174, 59, 0.15); padding-bottom: 12px; }
+        .sys-badge { font-size: 9px; font-family: monospace; color: var(--gold); letter-spacing: 4px; font-weight: bold; margin-bottom: 8px; }
+        h1 { font-size: clamp(18px, 5vw, 22px); font-weight: 300; margin: 0; letter-spacing: 2px; text-transform: uppercase; color: var(--pure-light); text-shadow: 0 0 15px rgba(255, 255, 255, 0.3); }
+        h1 strong { font-weight: 900; color: var(--gold2); }
+        .faction-title { font-size: 11px; color: var(--laser-cyan); letter-spacing: 2px; font-family: monospace; margin-top: 8px; font-weight: 600; text-shadow: 0 0 8px rgba(0, 217, 255, 0.4); }
+                /* BOTÓN DE GENERACIÓN VIP */
         .btn-generate {
-            display: block;
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, rgba(220, 174, 59, 0.03), rgba(220, 174, 59, 0.08));
-            border: 1px solid var(--gold-prestige);
-            color: var(--gold-prestige);
-            font-size: 12px;
-            font-family: monospace;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            cursor: pointer;
-            box-sizing: border-box;
-            margin-top: 10px;
-            -webkit-tap-highlight-color: transparent;
-            
-            /* Bisel moderno de quinta generación */
+            display: block; width: 100%; padding: clamp(16px, 4vw, 20px); background: transparent;
+            border: 1px solid var(--gold); color: var(--gold2); font-size: 11px; font-family: monospace;
+            font-weight: 900; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; box-sizing: border-box;
+            margin-top: 10px; position: relative; overflow: hidden; transition: all 0.4s ease;
             clip-path: polygon(0% 0%, 94% 0%, 100% 25%, 100% 100%, 6% 100%, 0% 75%);
-            transition: background-color 0.15s linear, box-shadow 0.15s linear;
         }
-
-        .btn-generate:active {
-            background: rgba(220, 174, 59, 0.15);
-            box-shadow: 0 0 25px var(--gold-glow);
-            transform: scale3d(0.99, 0.99, 1);
+        .btn-generate::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(220, 174, 59, 0.2), transparent); transition: left 0.5s ease;
         }
+        .btn-generate:hover { background: rgba(220, 174, 59, 0.1); box-shadow: 0 0 25px rgba(220, 174, 59, 0.2); text-shadow: 0 0 8px var(--gold2); }
+        .btn-generate:hover::before { left: 100%; }
+        .btn-generate:active { transform: scale3d(0.98, 0.98, 1); }
 
-        /* VISUALIZADOR DE CRISTAL CON COPIA RÁPIDA (60 FPS) */
+        /* VISUALIZADOR DE CRISTAL */
         .token-display-box {
-            display: none;
-            margin-top: 10px;
-            padding: 16px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(220, 174, 59, 0.25);
-            text-align: center;
-            cursor: pointer;
-            position: relative;
-            
-            /* Bisel simétrico inverso táctico */
-            clip-path: polygon(0% 0%, 96% 0%, 100% 20%, 100% 100%, 4% 100%, 0% 80%);
-            animation: pane-appear 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            display: none; margin-top: 10px; padding: 18px; background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(220, 174, 59, 0.4); text-align: center; cursor: pointer; position: relative;
+            clip-path: polygon(0% 0%, 96% 0%, 100% 15%, 100% 100%, 4% 100%, 0% 85%);
+            animation: pane-appear 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transition: all 0.2s ease;
         }
+        .token-display-box:active { background: rgba(220, 174, 59, 0.1); border-color: var(--gold2); transform: scale(0.98); }
+        @keyframes pane-appear { from { opacity: 0; transform: translate3d(0, 15px, 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
 
-        .token-display-box:active {
-            background: rgba(220, 174, 59, 0.04);
-            border-color: var(--gold-prestige);
-        }
-
-        @keyframes pane-appear {
-            from { opacity: 0; transform: translate3d(0, 10px, 0); }
-            to { opacity: 1; transform: translate3d(0, 0, 0); }
-        }
-
-        .token-label {
-            font-size: 9px;
-            font-family: monospace;
-            color: var(--sub-slate);
-            letter-spacing: 2px;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-        }
-
-        .token-string {
-            font-size: 20px;
-            font-family: monospace;
-            color: var(--pure-light);
-            font-weight: 700;
-            letter-spacing: 2px;
-        }
-
-        .copy-toast {
-            font-size: 9px;
-            font-family: monospace;
-            color: var(--laser-cyan);
-            letter-spacing: 1px;
-            margin-top: 6px;
-            opacity: 0.8;
-            font-weight: bold;
-        }
+        .token-label { font-size: 9px; font-family: monospace; color: var(--gold); letter-spacing: 2px; margin-bottom: 8px; text-transform: uppercase; opacity: 0.8; }
+        .token-string { font-size: clamp(18px, 6vw, 24px); font-family: monospace; color: var(--pure-light); font-weight: 700; letter-spacing: 3px; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+        .copy-toast { font-size: 9px; font-family: monospace; color: var(--laser-cyan); letter-spacing: 1px; margin-top: 8px; opacity: 0.9; font-weight: bold; }
 
         /* BOTÓN DE DESCONEXIÓN TÁCTICA */
-        .logout-zone {
-            margin-top: 10px;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
-            padding-top: 12px;
-        }
-
+        .logout-zone { margin-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 15px; }
         .btn-logout {
-            display: block;
-            width: 100%;
-            padding: 16px;
-            background: rgba(255, 74, 74, 0.02);
-            border: 1px dashed rgba(255, 74, 74, 0.3);
-            color: var(--alert-red);
-            text-align: center;
-            text-decoration: none;
-            font-size: 11px;
-            font-family: monospace;
-            font-weight: 600;
-            letter-spacing: 2px;
-            box-sizing: border-box;
-            
-            /* Biselado en diagonal para acoplar la estética general */
-            clip-path: polygon(0% 0%, 96% 0%, 100% 20%, 100% 100%, 4% 100%, 0% 80%);
-            transition: background-color 0.15s linear, border-color 0.15s linear;
+            display: block; width: 100%; padding: 16px; background: rgba(255, 74, 74, 0.05); border: 1px dashed rgba(255, 74, 74, 0.4);
+            color: var(--alert-red); text-align: center; text-decoration: none; font-size: 10px; font-family: monospace; font-weight: 600;
+            letter-spacing: 2px; box-sizing: border-box; clip-path: polygon(0% 0%, 96% 0%, 100% 25%, 100% 100%, 4% 100%, 0% 75%);
+            transition: all 0.2s ease;
         }
+        .btn-logout:hover { background: rgba(255, 74, 74, 0.1); text-shadow: 0 0 8px var(--alert-red); }
+        .btn-logout:active { background: rgba(255, 74, 74, 0.2); border-color: var(--alert-red); box-shadow: 0 0 15px rgba(255, 74, 74, 0.2); transform: scale(0.98); }
 
-        .btn-logout:active {
-            background: rgba(255, 74, 74, 0.12);
-            border-color: var(--alert-red);
-            box-shadow: 0 0 15px rgba(255, 74, 74, 0.15);
-        }
-
-        /* TELEMETRÍA PERIMETRAL AJUSTADA AL DINÁMICO DEL MENÚ MÓVIL */
+        /* TELEMETRÍA PERIMETRAL Y MIRAS */
         .hud-frame-telemetry {
-            position: absolute;
-            top: 0; left: 0; width: 100vw; height: 100dvh; 
-            pointer-events: none;
-            z-index: 3; 
-            box-sizing: border-box;
-            padding: 15px;
-            font-family: monospace;
-            font-size: 8px;
-            color: rgba(220, 174, 59, 0.25); 
-            letter-spacing: 1px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            position: absolute; inset: 0; pointer-events: none; z-index: 3; box-sizing: border-box; padding: clamp(15px, 4vw, 30px);
+            font-family: monospace; font-size: 8px; color: rgba(61, 218, 114, 0.4); letter-spacing: 2px; display: flex; flex-direction: column; justify-content: space-between;
         }
-
         .hud-row { display: flex; justify-content: space-between; width: 100%; }
-
-        .hud-bracket {
-            position: absolute;
-            width: 20px; height: 20px;
-            border: 1px solid rgba(220, 174, 59, 0.12);
-        }
-        .h-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
-        .h-tr { top: 10px; right: 10px; border-left: none; border-bottom: none; }
-        .h-bl { bottom: 10px; left: 10px; border-right: none; border-top: none; }
-        .h-br { bottom: 10px; right: 10px; border-left: none; border-top: none; }
-
-        .hud-crosshair {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate3d(-50%, -50%, 0);
-            width: 30px; height: 30px;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.15;
-        }
-        .hud-crosshair::before, .hud-crosshair::after { content: ''; position: absolute; background-color: var(--gold-prestige); }
-        .hud-crosshair::before { top: 14px; left: 0; width: 100%; height: 1px; }
-        .hud-crosshair::after { top: 0; left: 14px; width: 1px; height: 100%; }
-
-        /* BARRAS VERTICALES DE CARGA SATELITAL */
-        .hud-v-bar {
-            position: absolute;
-            top: 35dvh; width: 3px; height: 30dvh; 
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(220, 174, 59, 0.08);
-            z-index: 3;
-            pointer-events: none;
-        }
-        .bar-left { left: 15px; }
-        .bar-right { right: 15px; }
-        .hud-v-bar-fill {
-            width: 100%; height: 65%; 
-            background: var(--gold-prestige);
-            box-shadow: 0 0 8px var(--gold-prestige);
-        }
+        .hud-crosshair { position: absolute; top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0); width: 40px; height: 40px; pointer-events: none; z-index: 1; opacity: 0.15; }
+        .hud-crosshair::before, .hud-crosshair::after { content: ''; position: absolute; background-color: var(--green); }
+        .hud-crosshair::before { top: 19px; left: 0; width: 100%; height: 1px; }
+        .hud-crosshair::after { top: 0; left: 19px; width: 1px; height: 100%; }
+        
+        .hud-v-bar { position: absolute; top: 35dvh; width: 3px; height: 30dvh; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(61, 218, 114, 0.15); z-index: 3; pointer-events: none; }
+        .bar-left { left: clamp(5px, 2vw, 15px); } .bar-right { right: clamp(5px, 2vw, 15px); }
+        .hud-v-bar-fill { width: 100%; height: 65%; background: var(--green); box-shadow: 0 0 10px var(--green); }
     </style>
 </head>
 <body>
 
-    <!-- CAPA DE DATOS EN CASCADA CIEGA ASÍNCRONA (TELEMETRÍA DE MARCOS EN ORO) -->
+    <!-- TELEMETRÍA DE MARCOS (VERDE TÁCTICO) -->
     <div class="telemetry-bg-container">
-        <!-- Columna Izquierda Furtiva -->
         <div class="telemetry-column col-left">
-            <div class="telemetry-stream-feed">
-                A4F9B2C8<br>D3E710F5<br>6B8C9D0E<br>1A2F34BC<br>78DE90F1<br>2345ABCD<br>EF678901<br>BCDE2345<br>FFA01234<br>A4F9B2C8<br>D3E710F5<br>6B8C9D0E
-            </div>
+            <div class="telemetry-stream-feed">A4F9B2C8<br>D3E710F5<br>6B8C9D0E<br>1A2F34BC<br>78DE90F1<br>2345ABCD<br>EF678901<br>BCDE2345<br>FFA01234<br>A4F9B2C8<br>D3E710F5</div>
         </div>
-        <!-- Columna Derecha Furtiva -->
         <div class="telemetry-column col-right">
-            <div class="telemetry-stream-feed">
-                90F12345<br>ABCDEF67<br>8901BCDE<br>2345FFA0<br>1234A4F9<br>B2C8D3E7<br>10F56B8C<br>9D0E1A2F<br>34BC78DE<br>90F12345<br>ABCDEF67<br>8901BCDE
-            </div>
+            <div class="telemetry-stream-feed">90F12345<br>ABCDEF67<br>8901BCDE<br>2345FFA0<br>1234A4F9<br>B2C8D3E7<br>10F56B8C<br>9D0E1A2F<br>34BC78DE<br>90F12345<br>ABCDEF67</div>
         </div>
     </div>
 
-    <!-- MIRA DE CENTRADO TÁCTICO HUD -->
+    <!-- MIRA Y MARCAS PERIMETRALES -->
     <div class="hud-crosshair"></div>
-
-    <!-- TELEMETRÍA Y MARCAS DIGITALES PERIMETRALES -->
-    <div class="hud-bracket h-tl"></div>
-    <div class="hud-bracket h-tr"></div>
-    <div class="hud-bracket h-bl"></div>
-    <div class="hud-bracket h-br"></div>
-    
-    <!-- BARRAS SATELITALES LATERALES CONTRA MARCOS VACÍOS -->
     <div class="hud-v-bar bar-left"><div class="hud-v-bar-fill"></div></div>
     <div class="hud-v-bar bar-right"><div class="hud-v-bar-fill" style="height: 40%;"></div></div>
 
     <div class="hud-frame-telemetry">
-        <div class="hud-row">
-            <span>SYS_LOC: MAINFRAME_BUNKER_01</span>
-            <span>GRID_SEC: [26-06-22]</span>
-        </div>
-        <div class="hud-row">
-            <span>ALT_MANDO // TOKEN_GEN_HUB</span>
-            <span>SECURE_LINK // TRK_ACTV</span>
-        </div>
+        <div class="hud-row"><span>SYS_LOC: MAINFRAME_BUNKER_01</span><span>GRID_SEC: [26-06-22]</span></div>
+        <div class="hud-row"><span>ALT_MANDO // TOKEN_GEN_HUB</span><span>SECURE_LINK // TRK_ACTV</span></div>
     </div>
 
-    <div class="mainframe-container">
-        <!-- Haz de luz perimetral en oro con vaivén alterno -->
-        <div class="laser-border lb-top"></div>
-        <div class="laser-border lb-bottom"></div>
-
-        <!-- Ángulos estructurales fijados -->
+    <!-- WRAPPER CENTRAL -->
+    <div class="mainframe-wrapper">
+        
+        <!-- FONDO DE CRISTAL (Ahora contiene y recorta los láseres) -->
+        <div class="mainframe-bg">
+            <div class="laser-border lb-top"></div>
+            <div class="laser-border lb-bottom"></div>
+        </div>
+        
+        <!-- ÁNGULOS (Por fuera para no ser recortados) -->
         <div class="corner-bracket tl"></div>
         <div class="corner-bracket tr"></div>
         <div class="corner-bracket bl"></div>
         <div class="corner-bracket br"></div>
 
-        <!-- Cabecera de Alto Rango -->
-        <div class="header-shield">
-            <div class="sys-badge">★ COMANDO GENERAL DE MESA ★</div>
-            <h1>SISTEMA DE CONTROL</h1>
-            <div class="faction-title" id="factionDisplay">FACCIÓN: CARGANDO...</div>
-        </div>
+        <div class="mainframe-container">
+            <div class="vip-crest"></div>
 
-        <!-- Accionador Crítico de Tokens -->
-        <button class="btn-generate" id="btnGenerar">GENERAR TOKEN ENCRIPTADO</button>
+            <div class="header-shield">
+                <div class="sys-badge">COMANDO DE MADERA</div>
+                <h1>SISTEMA <strong>CONTROL</strong></h1>
+                <div class="faction-title" id="factionDisplay">FACCIÓN: CARGANDO...</div>
+            </div>
 
-        <!-- Visualizador de Código Criptográfico con Copia Rápida -->
-        <div class="token-display-box" id="tokenBox" title="Toque para copiar el código">
-            <div class="token-label">Código Alfa (Toque para copiar)</div>
-            <div class="token-string" id="tokenTexto">CBR-XXXX-XXXX</div>
-            <div class="copy-toast" id="copyToast">[ TOQUE PARA COPIAR RÁPIDO ]</div>
-        </div>
+            <button class="btn-generate" id="btnGenerar">GENERAR TOKEN ENCRIPTADO</button>
 
-        <!-- Zona de Desconexión del Comando -->
-        <div class="logout-zone">
-            <a href="/logout" class="btn-logout" id="btnDisconnect">[ TERMINAR TRANSMISIÓN / DESCONECTAR ]</a>
+            <div class="token-display-box" id="tokenBox" title="Toque para copiar el código">
+                <div class="token-label">CÓDIGO DE AUTORIZACIÓN ALFA</div>
+                <div class="token-string" id="tokenTexto">CBR-XXXX-XXXX</div>
+                <div class="copy-toast" id="copyToast">[ TOQUE PARA COPIAR RÁPIDO ]</div>
+            </div>
+
+            <div class="logout-zone">
+                <a href="/logout" class="btn-logout" id="btnDisconnect">TERMINAR TRANSMISIÓN / DESCONECTAR</a>
+            </div>
         </div>
     </div>
-        <!-- CONTROLADOR JAVASCRIPT Y MOTOR DE AUDIO DEL ALTO MANDO -->
+
     <script>
         let audioCtx = null;
 
         function initAudio() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
+            if (!audioCtx) { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+            if (audioCtx.state === 'suspended') { audioCtx.resume(); }
         }
 
-        // Tono: Pulso doble agudo del Alto Mando
         function playCommandSound() {
             initAudio();
-            let osc1 = audioCtx.createOscillator();
-            let gain1 = audioCtx.createGain();
-            osc1.type = 'sine';
-            osc1.frequency.setValueAtTime(1500, audioCtx.currentTime);
-            gain1.gain.setValueAtTime(0.06, audioCtx.currentTime);
-            gain1.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
-            osc1.connect(gain1);
-            gain1.connect(audioCtx.destination);
-            osc1.start();
-            osc1.stop(audioCtx.currentTime + 0.04);
-
+            let osc1 = audioCtx.createOscillator(); let gain1 = audioCtx.createGain();
+            osc1.type = 'sine'; osc1.frequency.setValueAtTime(1500, audioCtx.currentTime);
+            gain1.gain.setValueAtTime(0.06, audioCtx.currentTime); gain1.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+            osc1.connect(gain1); gain1.connect(audioCtx.destination); osc1.start(); osc1.stop(audioCtx.currentTime + 0.04);
             setTimeout(() => {
-                let osc2 = audioCtx.createOscillator();
-                let gain2 = audioCtx.createGain();
-                osc2.type = 'sine';
-                osc2.frequency.setValueAtTime(1900, audioCtx.currentTime);
-                gain2.gain.setValueAtTime(0.06, audioCtx.currentTime);
-                gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
-                osc2.connect(gain2);
-                gain2.connect(audioCtx.destination);
-                osc2.start();
-                osc2.stop(audioCtx.currentTime + 0.04);
+                let osc2 = audioCtx.createOscillator(); let gain2 = audioCtx.createGain();
+                osc2.type = 'sine'; osc2.frequency.setValueAtTime(1900, audioCtx.currentTime);
+                gain2.gain.setValueAtTime(0.06, audioCtx.currentTime); gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+                osc2.connect(gain2); gain2.connect(audioCtx.destination); osc2.start(); osc2.stop(audioCtx.currentTime + 0.04);
             }, 40);
         }
 
-        // Tono: Pulso descendente de desconexión o fallo
         function playDisconnectSound() {
             initAudio();
-            let osc = audioCtx.createOscillator();
-            let gain = audioCtx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+            let osc = audioCtx.createOscillator(); let gain = audioCtx.createGain();
+            osc.type = 'sine'; osc.frequency.setValueAtTime(800, audioCtx.currentTime);
             osc.frequency.linearRampToValueAtTime(300, audioCtx.currentTime + 0.12);
-            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.12);
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12);
+            osc.connect(gain); gain.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 0.12);
         }
 
-        // Cargar los datos de la facción del Líder logueado desde la API
         fetch('/api/info-lider')
             .then(res => res.json())
             .then(data => {
-                if(data.faction) {
-                    document.getElementById('factionDisplay').innerText = `FACCIÓN ASIGNADA: ${data.faction.toUpperCase()}`;
-                }
+                if(data.faction) { document.getElementById('factionDisplay').innerText = `FACCIÓN ASIGNADA: ${data.faction.toUpperCase()}`; }
             })
-            .catch(() => {
-                document.getElementById('factionDisplay').innerText = `ENLACE DE DATOS MILITAR`;
-            });
+            .catch(() => { document.getElementById('factionDisplay').innerText = `ENLACE DE DATOS MILITAR`; });
 
-        // Escucha táctil obligatoria en dispositivos móviles para permisos de audio
         document.body.addEventListener('touchstart', initAudio, {passive: true});
 
-        // Ejecutar llamada a la API interna para crear y persistir el Token
         document.getElementById('btnGenerar').addEventListener('click', () => {
             playCommandSound();
             fetch('/api/generar-token', { method: 'POST' })
@@ -518,57 +348,36 @@
                         document.getElementById('tokenBox').style.display = 'block';
                     }
                 })
-                .catch(() => {
-                    alert("Falla de transmisión crítica con el almacenamiento.");
-                });
+                .catch(() => { alert("Falla de transmisión crítica con el almacenamiento."); });
         });
 
-        // FUNCIÓN TÁCTICA DE TRANSFERENCIA BLINDADA (EVITA CARACTERES INVISIBLES)
         function forzarCopiadoToken(texto) {
             if (navigator.clipboard && window.isSecureContext) {
                 return navigator.clipboard.writeText(texto);
             } else {
-                // Soporte de respaldo (Fallback) para navegadores de apps móviles (Discord, etc.)
                 return new Promise((resolve, reject) => {
                     const textArea = document.createElement("textarea");
-                    textArea.value = texto;
-                    textArea.style.position = "fixed";
-                    textArea.style.opacity = "0";
-                    document.body.appendChild(textArea);
-                    textArea.focus();
-                    textArea.select();
-                    try {
-                        if (document.execCommand('copy')) resolve();
-                        else reject(new Error('Falla de sistema en execCommand'));
-                    } catch (err) { reject(err); }
+                    textArea.value = texto; textArea.style.position = "fixed"; textArea.style.opacity = "0";
+                    document.body.appendChild(textArea); textArea.focus(); textArea.select();
+                    try { if (document.execCommand('copy')) resolve(); else reject(new Error('Falla de sistema')); } catch (err) { reject(err); }
                     document.body.removeChild(textArea);
                 });
             }
         }
 
-        // SISTEMA DE COPIA RÁPIDA AL PORTAPAPELES
         document.getElementById('tokenBox').addEventListener('click', () => {
             const tokenTexto = document.getElementById('tokenTexto').innerText.trim();
             initAudio();
+            let osc = audioCtx.createOscillator(); let gain = audioCtx.createGain();
+            osc.type = 'sine'; osc.frequency.setValueAtTime(1700, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.05, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
+            osc.connect(gain); gain.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 0.03);
 
-            // Sonido de confirmación de copia rápida (pulso ultra rápido de éxito)
-            let osc = audioCtx.createOscillator();
-            let gain = audioCtx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(1700, audioCtx.currentTime);
-            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.03);
-
-            // Ejecución del portapapeles blindado
             forzarCopiadoToken(tokenTexto)
                 .then(() => {
                     const toast = document.getElementById('copyToast');
                     toast.innerText = "✓ COPIADO AL PORTAPAPELES TÁCTICO";
-                    toast.style.color = "#00ff66"; // Verde militar éxito
+                    toast.style.color = "var(--green)"; 
                 })
                 .catch(() => {
                     document.getElementById('copyToast').innerText = "ERROR AL COPIAR EL CÓDIGO";
@@ -576,16 +385,11 @@
                 });
         });
 
-               // SISTEMA DE DESCONEXIÓN CON RETRASO CONTROLADO PARA AUDIO
         document.getElementById('btnDisconnect').addEventListener('click', function(e) {
             e.preventDefault();
             const destinationUrl = this.getAttribute('href');
             playDisconnectSound();
-
-            // Retardo controlado para que el navegador procese el audio antes del salto
-            setTimeout(() => {
-                window.location.href = destinationUrl;
-            }, 120);
+            setTimeout(() => { window.location.href = destinationUrl; }, 120);
         });
     </script>
 </body>

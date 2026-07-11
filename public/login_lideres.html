@@ -2,35 +2,36 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <!-- Forzado de escala estricto para evitar zoom táctil y fijar vista móvil tipo App nativa vertical -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>[LOGIN LÍDERES]</title>
+    <title>[ALTO MANDO] - ACCESO CLASIFICADO</title>
     <style>
-        /* Variables de Sistema del Alto Mando: Oro de Prestigio Moderno y Negro Sigilo */
+        /* Variables de Prestigio Táctico */
         :root {
-            --stealth-dark: #020407;
-            --glass-core: rgba(10, 16, 26, 0.55); /* Cristal de búnker moderno translúcido */
-            --gold-prestige: #dcae3b;
-            --gold-glow: rgba(220, 174, 59, 0.18); /* Iluminación ambiental de fibra óptica */
-            --laser-cyan: #00d9ff;
-            --sub-slate: #56687a;
-            --pure-light: #f1f5f9;
+            --bg: #06110A;
+            --bg-radial: #0a1f13;
+            --panel: rgba(5, 12, 8, 0.75);
+            --green: #3DDA72;
+            --green2: #86FFC0;
+            --gold: #dcae3b;
+            --gold2: #ffe082;
+            --gold-dark: #8a6c22;
+            --white: #F5F7F6;
+            --text: #C9D8CF;
             --alert-red: #ff4a4a;
-            --grid-line: rgba(220, 174, 59, 0.015);
+            --grid-line: rgba(61, 218, 114, 0.03);
         }
 
-        /* INGENIERÍA DE PANTALLA COMPLETA VERTICAL REAL EN MÓVILES (ADAPTABLE A BARRAS DE NAVEGACIÓN) */
         html, body {
-            width: 100vw;
-            height: 100dvh; /* Forzado dinámico contra barras inferiores */
+            width: 100%;
+            height: 100dvh;
             margin: 0;
             padding: 0;
             overflow: hidden;
-            background-color: var(--stealth-dark);
+            background-color: var(--bg);
         }
 
         body {
-            color: var(--pure-light);
+            color: var(--white);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             display: flex;
             flex-direction: column;
@@ -38,497 +39,434 @@
             align-items: center;
             touch-action: none;
             position: relative;
+            
+            background: radial-gradient(circle at center, var(--bg-radial) 0%, #020604 80%);
             background-image: 
                 linear-gradient(var(--grid-line) 1px, transparent 1px),
                 linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-            background-size: 40px 40px; /* Rejilla fina moderna */
+            background-size: 50px 50px;
             background-position: center;
-
-            /* Bloqueo estricto de resaltado para simular comportamiento de App Nativa */
             -webkit-user-select: none;
             user-select: none;
         }
 
-        /* FORZADO DE RENDERIZADO POR GPU PARA VELOCIDAD ESTRICTA DE 60 FPS */
-        .mainframe-container, .form-input, .btn-submit, .telemetry-stream-feed, .alert-box, .hud-v-bar-fill, .laser-border {
+        .mainframe-container, .form-input, .btn-submit, .telemetry-stream-feed {
             -webkit-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0);
             will-change: transform, opacity;
         }
-        /* CAPA DE DATOS EN CASCADA CIEGA / TELEMETRY FEED (60 FPS) */
+
+        /* TELEMETRÍA ULTRA SUTIL */
         .telemetry-bg-container {
             position: absolute;
-            top: 0; left: 0; width: 100vw; height: 100dvh;
+            inset: 0;
             z-index: 2;
             pointer-events: none;
             overflow: hidden;
             display: flex;
             justify-content: space-between;
-            box-sizing: border-box;
-            padding: 0 40px; /* Separado del chasis central */
+            padding: 0 clamp(10px, 4vw, 40px);
         }
 
-        /* Columnas de Datos Flotantes */
         .telemetry-column {
             width: 50px;
             font-family: monospace;
             font-size: 8px;
-            color: var(--gold-prestige);
-            opacity: 0.06; /* Intensidad baja y sigilosa estilo código encriptado */
-            line-height: 1.4;
-            letter-spacing: 1px;
+            color: var(--green);
+            opacity: 0.08;
+            line-height: 1.5;
+            letter-spacing: 2px;
             word-break: break-all;
             display: flex;
             flex-direction: column;
             white-space: nowrap;
         }
 
-        /* Flujo continuo ascendente forzado por hardware */
-        .telemetry-stream-feed {
-            animation: cascade-up 12s infinite linear;
-        }
-        
-        /* Variaciones asíncronas de tiempo para romper la simetría web */
-        .col-left .telemetry-stream-feed { animation-duration: 14s; }
-        .col-right .telemetry-stream-feed { animation-duration: 10s; animation-delay: -2s; }
+        .telemetry-stream-feed { animation: cascade-up 15s infinite linear; }
+        .col-left .telemetry-stream-feed { animation-duration: 18s; }
+        .col-right .telemetry-stream-feed { animation-duration: 12s; animation-delay: -3s; }
 
         @keyframes cascade-up {
             0% { transform: translate3d(0, 0, 0); }
             100% { transform: translate3d(0, -33.33%, 0); }
         }
-                /* CONSOLA CENTRAL COMPACTA AUTOADAPTABLE AL NAVEGADOR MÓVIL */
-        .mainframe-container {
-            background: rgba(7, 13, 22, 0.55); 
-            border: 1px solid rgba(220, 174, 59, 0.25);
-            padding: 24px 20px; 
-            width: 96vw;          
-            max-width: 440px;
-            height: 90dvh;         
-            max-height: 90dvh;     
-            box-sizing: border-box;
-            
-            /* Sombra difusa holográfica estilo fibra óptica */
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.9), 0 0 30px var(--gold-glow);
-            
-            /* CORTE POLIGONAL ASIMÉTRICO MODERNO DE QUINTA GENERACIÓN */
-            clip-path: polygon(0% 0%, 92% 0%, 100% 8%, 100% 100%, 8% 100%, 0% 92%);
-            
+        
+                /* CONSOLA CENTRAL VIP */
+        .mainframe-wrapper {
             position: relative;
+            width: 90vw;
+            max-width: 420px;
             z-index: 5;
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
+        }
+
+        .mainframe-bg {
+            position: absolute;
+            inset: 0;
+            background: var(--panel);
+            border: 1px solid rgba(220, 174, 59, 0.2);
+            box-shadow: 
+                inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+                inset 0 0 20px rgba(220, 174, 59, 0.05),
+                0 30px 60px rgba(0, 0, 0, 0.9), 
+                0 0 40px rgba(220, 174, 59, 0.1);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
+            clip-path: polygon(0% 0%, 94% 0%, 100% 6%, 100% 100%, 6% 100%, 0% 94%);
+            z-index: -1;
+        }
+
+        .mainframe-container {
+            padding: clamp(30px, 6vw, 45px) clamp(20px, 5vw, 35px);
             display: flex;
             flex-direction: column;
-            justify-content: center; 
-            gap: 12px;              
+            justify-content: center;
+            gap: 16px;
+            position: relative;
         }
 
-        /* LÁSER PERIMETRAL DE AUTORIDAD EN MODO VAIVÉN / PING-PONG (60 FPS) */
+        /* LÁSER PERIMETRAL ELEGANTE */
         .laser-border {
             position: absolute;
-            background: linear-gradient(90deg, transparent, var(--gold-prestige), transparent);
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
             z-index: 6;
+            pointer-events: none;
+            opacity: 0.6;
         }
-        /* Añadido 'alternate' para que la barra regrese fluidamente en lugar de desaparecer */
-        .lb-top { top: 0; left: 0; width: 100%; height: 1px; animation: laser-h 4s infinite ease-in-out alternate; }
-        .lb-bottom { bottom: 0; left: 0; width: 100%; height: 1px; animation: laser-h-rev 4s infinite ease-in-out alternate; }
+        .lb-top { top: 0; left: 0; width: 100%; height: 1px; animation: laser-h 6s infinite ease-in-out alternate; }
+        .lb-bottom { bottom: 0; left: 0; width: 100%; height: 1px; animation: laser-h-rev 6s infinite ease-in-out alternate; }
 
-        /* Trayectos optimizados en 3D para rebote limpio en los bordes del chasis */
-        @keyframes laser-h { 0% { transform: translate3d(-100%, 0, 0); } 100% { transform: translate3d(100%, 0, 0); } }
-        @keyframes laser-h-rev { 0% { transform: translate3d(100%, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
+        @keyframes laser-h { 0% { transform: translate3d(-100%, 0, 0); opacity: 0; } 50% { opacity: 1; } 100% { transform: translate3d(100%, 0, 0); opacity: 0; } }
+        @keyframes laser-h-rev { 0% { transform: translate3d(100%, 0, 0); opacity: 0; } 50% { opacity: 1; } 100% { transform: translate3d(-100%, 0, 0); opacity: 0; } }
 
-        /* Ángulos de Titanio para el Enfoque de Retícula */
-        .corner-bracket {
+        /* INSIGNIA HOLOGRÁFICA VIP */
+        .vip-crest {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 10px;
+            border: 1px solid var(--gold);
+            transform: rotate(45deg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 0 10px rgba(220, 174, 59, 0.2), 0 0 15px rgba(220, 174, 59, 0.4);
+            animation: crest-pulse 4s infinite ease-in-out alternate;
+        }
+        .vip-crest::before {
+            content: '✦';
+            transform: rotate(-45deg);
+            color: var(--gold2);
+            font-size: 18px;
+            text-shadow: 0 0 10px var(--gold2);
+        }
+        @keyframes crest-pulse {
+            0% { box-shadow: inset 0 0 5px rgba(220, 174, 59, 0.1), 0 0 10px rgba(220, 174, 59, 0.2); }
+            100% { box-shadow: inset 0 0 15px rgba(220, 174, 59, 0.4), 0 0 25px rgba(220, 174, 59, 0.6); }
+        }
+
+        /* --- SISTEMA DE ESCANEO BIOMÉTRICO --- */
+        .scanner-overlay {
             position: absolute;
-            width: 14px; height: 14px;
-            border: 2px solid rgba(220, 174, 59, 0.4);
-            z-index: 7;
+            inset: 0;
+            background: rgba(5, 12, 8, 0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+            clip-path: polygon(0% 0%, 94% 0%, 100% 6%, 100% 100%, 6% 100%, 0% 94%);
         }
-        .tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
-        .tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
-        .bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
-        .br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
 
-        /* CABECERA PRIVADA SANITIZADA */
-        .header-shield {
+        .scanner-overlay.active { opacity: 1; visibility: visible; }
+
+        .bio-target {
+            position: relative;
+            width: 80px; height: 80px;
+            margin-bottom: 25px;
+            transition: filter 0.4s ease;
+        }
+
+        .bio-corner {
+            position: absolute; width: 20px; height: 20px; border: 2px solid var(--gold);
+        }
+        .bc-tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+        .bc-tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+        .bc-bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+        .bc-br { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+        .scan-bar {
+            position: absolute;
+            top: 0; left: -10%; width: 120%; height: 2px;
+            background: var(--gold2);
+            box-shadow: 0 0 15px var(--gold2), 0 0 30px var(--gold);
+            animation: scan-sweep 1.5s linear infinite alternate;
+            z-index: 22;
+        }
+
+        @keyframes scan-sweep {
+            0% { top: 0%; } 100% { top: 100%; }
+        }
+
+        .fingerprint-core {
+            position: absolute;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 40px; height: 50px;
+            background-image: 
+                radial-gradient(ellipse at center, transparent 30%, var(--gold) 35%, transparent 40%),
+                radial-gradient(ellipse at center, transparent 50%, var(--gold) 55%, transparent 60%),
+                radial-gradient(ellipse at center, transparent 70%, var(--gold) 75%, transparent 80%);
+            background-size: 100% 100%;
+            opacity: 0.4;
+            animation: bio-pulse 1.5s infinite alternate;
+        }
+
+        @keyframes bio-pulse {
+            0% { opacity: 0.2; transform: translate(-50%, -50%) scale(0.95); }
+            100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.05); filter: drop-shadow(0 0 8px var(--gold)); }
+        }
+
+        .scanner-text {
+            font-size: 11px;
+            font-family: monospace;
+            color: var(--gold2);
+            letter-spacing: 4px;
             text-align: center;
-            margin-bottom: 5px;
-            border-bottom: 1px solid rgba(220, 174, 59, 0.15);
-            padding-bottom: 12px;
+            text-shadow: 0 0 10px var(--gold);
+            transition: color 0.4s ease;
         }
 
-        .sys-badge {
-            font-size: 10px;
-            font-family: monospace;
-            color: var(--gold-prestige);
-            letter-spacing: 3px;
-            font-weight: bold;
-        }
+        /* Reacciones del Escáner (Éxito y Fallo) */
+        .scanner-overlay.success .bio-target { filter: hue-rotate(90deg); }
+        .scanner-overlay.success .scanner-text { color: var(--green2); text-shadow: 0 0 10px var(--green); }
+        .scanner-overlay.error .bio-target { filter: hue-rotate(-60deg); }
+        .scanner-overlay.error .scanner-text { color: var(--alert-red); text-shadow: 0 0 10px var(--alert-red); }
+        
+                /* CABECERA PRIVADA Y TEXTOS */
+        .header-shield { text-align: center; margin-bottom: 15px; }
+        .sys-badge { font-size: 9px; font-family: monospace; color: var(--gold); letter-spacing: 4px; font-weight: bold; margin-bottom: 8px; }
+        h1 { font-size: clamp(18px, 5vw, 22px); font-weight: 300; margin: 0; letter-spacing: 5px; text-transform: uppercase; color: var(--white); text-shadow: 0 0 15px rgba(255, 255, 255, 0.3); }
+        h1 strong { font-weight: 900; color: var(--gold2); }
 
-        h1 {
-            font-size: 19px;
-            font-weight: 800;
-            margin: 6px 0 0 0;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--pure-light);
-        }
-
-        /* CAMPOS DEL FORMULARIO HUD MILITAR CON FUENTES MONO-ESTILIZADAS */
-        .form-group {
-            margin-bottom: 5px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 10px;
-            font-family: monospace;
-            color: var(--sub-slate);
-            margin-bottom: 8px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* ELEMENTO SELECTOR Y CAMPO DE TEXTO SIN LAG BAJO ESTRES */
+        /* CAMPOS DEL FORMULARIO MINIMALISTAS */
+        .form-group { margin-bottom: 12px; position: relative; }
+        .form-group label { display: block; font-size: 8px; font-family: monospace; color: var(--text); margin-bottom: 6px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.7; }
+        
         .form-input {
-            width: 100%;
-            padding: 16px;
-            background: #020407; 
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 2px;
-            color: var(--pure-light);
-            font-size: 13px;
-            font-family: monospace;
-            letter-spacing: 1px;
-            box-sizing: border-box;
-            outline: none;
-            transition: border-color 0.15s linear, box-shadow 0.15s linear;
-            -webkit-appearance: none; 
-            appearance: none;
+            width: 100%; padding: 12px 14px; background: rgba(0, 0, 0, 0.4); border: none; border-bottom: 1px solid var(--gold-dark); color: var(--gold2);
+            font-size: 13px; font-family: monospace; letter-spacing: 2px; box-sizing: border-box; outline: none; transition: all 0.3s ease;
+            -webkit-appearance: none; appearance: none;
         }
 
         select.form-input {
-            cursor: pointer;
-            background-image: linear-gradient(45deg, transparent 50%, var(--gold-prestige) 50%), linear-gradient(135deg, var(--gold-prestige) 50%, transparent 50%);
-            background-position: calc(100% - 20px) calc(1em + 4px), calc(100% - 15px) calc(1em + 4px);
-            background-size: 5px 5px, 5px 5px;
-            background-repeat: no-repeat;
+            cursor: pointer; background-image: linear-gradient(45deg, transparent 50%, var(--gold) 50%), linear-gradient(135deg, var(--gold) 50%, transparent 50%);
+            background-position: calc(100% - 15px) calc(1em + 2px), calc(100% - 10px) calc(1em + 2px); background-size: 5px 5px, 5px 5px; background-repeat: no-repeat;
         }
+        select.form-input option { background-color: var(--bg); color: var(--gold2); }
+        .form-input:focus { border-bottom-color: var(--gold2); background: rgba(220, 174, 59, 0.03); box-shadow: 0 10px 15px -10px rgba(220, 174, 59, 0.3); }
 
-        select.form-input option {
-            background-color: #0c121b;
-            color: var(--pure-light);
-            padding: 10px;
-        }
-
-        .form-input:focus {
-            border-color: var(--gold-prestige);
-            box-shadow: 0 0 15px rgba(220, 174, 59, 0.15);
-        }
-
-        /* BOTÓN DE VALIDACIÓN MODERNO CON CORTE GEOMÉTRICO ASIMÉTRICO */
+        /* BOTÓN DE VALIDACIÓN DE LUJO */
         .btn-submit {
-            display: block;
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, rgba(220, 174, 59, 0.03), rgba(220, 174, 59, 0.08));
-            border: 1px solid var(--gold-prestige);
-            color: var(--gold-prestige);
-            font-size: 12px;
-            font-family: monospace;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            cursor: pointer;
-            box-sizing: border-box;
-            margin-top: 10px;
-            -webkit-tap-highlight-color: transparent;
-            
-            /* Bisel moderno a juego con el chasis */
+            display: block; width: 100%; padding: clamp(16px, 4vw, 20px); background: transparent; border: 1px solid var(--gold); color: var(--gold2);
+            font-size: 11px; font-family: monospace; font-weight: 900; letter-spacing: 4px; text-transform: uppercase; cursor: pointer;
+            box-sizing: border-box; margin-top: 20px; position: relative; overflow: hidden; transition: all 0.4s ease;
             clip-path: polygon(0% 0%, 94% 0%, 100% 25%, 100% 100%, 6% 100%, 0% 75%);
-            transition: background-color 0.15s linear, color 0.15s linear;
         }
-
-        .btn-submit:active {
-            background: var(--gold-prestige);
-            color: var(--stealth-dark);
-            transform: scale3d(0.99, 0.99, 1);
+        .btn-submit::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(220, 174, 59, 0.2), transparent); transition: left 0.5s ease;
         }
-
-        .alert-box {
-            display: none;
-            margin-top: 5px;
-            background: rgba(255, 74, 74, 0.04);
-            border: 1px solid var(--alert-red);
-            border-left: 3px solid var(--alert-red);
-            color: var(--alert-red);
-            font-size: 11px;
-            font-family: monospace;
-            padding: 12px;
-            text-align: left;
-            line-height: 1.4;
-            animation: alert-appear 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes alert-appear {
-            from { opacity: 0; transform: translate3d(0, 5px, 0); }
-            to { opacity: 1; transform: translate3d(0, 0, 0); }
-        }
+        .btn-submit:hover { background: rgba(220, 174, 59, 0.1); box-shadow: 0 0 25px rgba(220, 174, 59, 0.2); text-shadow: 0 0 8px var(--gold2); }
+        .btn-submit:hover::before { left: 100%; }
+        .btn-submit:active { transform: scale3d(0.98, 0.98, 1); }
 
         .btn-back {
-            display: block;
-            text-align: center;
-            font-size: 10px;
-            font-family: monospace;
-            color: var(--sub-slate);
-            text-decoration: none;
-            margin-top: 5px;
-            letter-spacing: 1px;
+            display: block; text-align: center; font-size: 9px; font-family: monospace; color: rgba(255,255,255,0.4); text-decoration: none;
+            margin-top: 15px; letter-spacing: 2px; transition: color 0.3s ease;
         }
-        .btn-back:active { color: var(--laser-cyan); }
+        .btn-back:hover { color: var(--gold); }
 
-        /* TELEMETRÍA PERIMETRAL AJUSTADA AL DINÁMICO DEL MENÚ MÓVIL */
+        /* TELEMETRÍA PERIMETRAL */
         .hud-frame-telemetry {
-            position: absolute;
-            top: 0; left: 0; width: 100vw; height: 100dvh; 
-            pointer-events: none;
-            z-index: 3; 
-            box-sizing: border-box;
-            padding: 15px;
-            font-family: monospace;
-            font-size: 8px;
-            color: rgba(220, 174, 59, 0.25); 
-            letter-spacing: 1px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            position: absolute; inset: 0; pointer-events: none; z-index: 3; box-sizing: border-box; padding: clamp(15px, 4vw, 30px);
+            font-family: monospace; font-size: 8px; color: rgba(61, 218, 114, 0.4); letter-spacing: 2px; display: flex; flex-direction: column; justify-content: space-between;
         }
-
         .hud-row { display: flex; justify-content: space-between; width: 100%; }
-
-        .hud-bracket {
-            position: absolute;
-            width: 20px; height: 20px;
-            border: 1px solid rgba(220, 174, 59, 0.12);
-        }
-        .h-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
-        .h-tr { top: 10px; right: 10px; border-left: none; border-bottom: none; }
-        .h-bl { bottom: 10px; left: 10px; border-right: none; border-top: none; }
-        .h-br { bottom: 10px; right: 10px; border-left: none; border-top: none; }
-
         .hud-crosshair {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate3d(-50%, -50%, 0);
-            width: 30px; height: 30px;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.15;
+            position: absolute; top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0); width: 40px; height: 40px; pointer-events: none; z-index: 1; opacity: 0.15;
         }
-        .hud-crosshair::before, .hud-crosshair::after { content: ''; position: absolute; background-color: var(--gold-prestige); }
-        .hud-crosshair::before { top: 14px; left: 0; width: 100%; height: 1px; }
-        .hud-crosshair::after { top: 0; left: 14px; width: 1px; height: 100%; }
-
-        /* BARRAS VERTICALES DE CARGA SATELITAL RECALCULADAS */
-        .hud-v-bar {
-            position: absolute;
-            top: 35dvh; width: 3px; height: 30dvh; 
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(220, 174, 59, 0.08);
-            z-index: 3;
-            pointer-events: none;
-        }
-        .bar-left { left: 15px; }
-        .bar-right { right: 15px; }
-        .hud-v-bar-fill {
-            width: 100%; height: 65%; 
-            background: var(--gold-prestige);
-            box-shadow: 0 0 8px var(--gold-prestige);
-        }
+        .hud-crosshair::before, .hud-crosshair::after { content: ''; position: absolute; background-color: var(--green); }
+        .hud-crosshair::before { top: 19px; left: 0; width: 100%; height: 1px; }
+        .hud-crosshair::after { top: 0; left: 19px; width: 1px; height: 100%; }
     </style>
 </head>
 <body>
 
-    <!-- CAPA DE DATOS EN CASCADA CIEGA ASÍNCRONA (TELEMETRÍA DE MARCOS) -->
     <div class="telemetry-bg-container">
-        <!-- Columna Izquierda Furtiva -->
         <div class="telemetry-column col-left">
-            <div class="telemetry-stream-feed">
-                A4F9B2C8<br>D3E710F5<br>6B8C9D0E<br>1A2F34BC<br>78DE90F1<br>2345ABCD<br>EF678901<br>BCDE2345<br>FFA01234<br>A4F9B2C8<br>D3E710F5<br>6B8C9D0E
-            </div>
+            <div class="telemetry-stream-feed">A4F9B2C8<br>D3E710F5<br>6B8C9D0E<br>1A2F34BC<br>78DE90F1<br>2345ABCD<br>EF678901<br>BCDE2345<br>FFA01234<br>A4F9B2C8<br>D3E710F5</div>
         </div>
-        <!-- Columna Derecha Furtiva -->
         <div class="telemetry-column col-right">
-            <div class="telemetry-stream-feed">
-                90F12345<br>ABCDEF67<br>8901BCDE<br>2345FFA0<br>1234A4F9<br>B2C8D3E7<br>10F56B8C<br>9D0E1A2F<br>34BC78DE<br>90F12345<br>ABCDEF67<br>8901BCDE
-            </div>
+            <div class="telemetry-stream-feed">90F12345<br>ABCDEF67<br>8901BCDE<br>2345FFA0<br>1234A4F9<br>B2C8D3E7<br>10F56B8C<br>9D0E1A2F<br>34BC78DE<br>90F12345<br>ABCDEF67</div>
         </div>
     </div>
 
-    <!-- MIRA DE CENTRADO TÁCTICO HUD -->
     <div class="hud-crosshair"></div>
-
-    <!-- TELEMETRÍA Y MARCAS DIGITALES PERIMETRALES -->
-    <div class="hud-bracket h-tl"></div>
-    <div class="hud-bracket h-tr"></div>
-    <div class="hud-bracket h-bl"></div>
-    <div class="hud-bracket h-br"></div>
-    
-    <!-- BARRAS SATELITALES LATERALES CONTRA MARCOS VACÍOS -->
-    <div class="hud-v-bar bar-left"><div class="hud-v-bar-fill"></div></div>
-    <div class="hud-v-bar bar-right"><div class="hud-v-bar-fill" style="height: 40%;"></div></div>
-
     <div class="hud-frame-telemetry">
-        <div class="hud-row">
-            <span>SYS_LOC: MAINFRAME_BUNKER_01</span>
-            <span>GRID_SEC: [26-06-22]</span>
-        </div>
-        <div class="hud-row">
-            <span>ALT_MANDO // VAIVÉN_LÁSER_ON</span>
-            <span>SECURE_LINK // TRK_ACTV</span>
-        </div>
+        <div class="hud-row"><span>SYS.LOC // ALTO_MANDO</span><span>SECURE_LINK // TRK_ACTV</span></div>
+        <div class="hud-row"><span>GRID.SEC // [26-06-22]</span><span>TERMINAL // 0X-VIP</span></div>
     </div>
-
-    <div class="mainframe-container">
-        <!-- Haz de luz perimetral en oro con rebote alterno -->
+    
+        <div class="mainframe-wrapper">
+        <div class="mainframe-bg"></div>
         <div class="laser-border lb-top"></div>
         <div class="laser-border lb-bottom"></div>
+        
+        <div class="mainframe-container">
+            
+            <!-- OVERLAY DE ESCANEO BIOMÉTRICO -->
+            <div class="scanner-overlay" id="biometric-overlay">
+                <div class="bio-target">
+                    <div class="bio-corner bc-tl"></div>
+                    <div class="bio-corner bc-tr"></div>
+                    <div class="bio-corner bc-bl"></div>
+                    <div class="bio-corner bc-br"></div>
+                    <div class="fingerprint-core"></div>
+                    <div class="scan-bar"></div>
+                </div>
+                <div class="scanner-text" id="scanner-text">ANALIZANDO HUELLA GENÉTICA...</div>
+            </div>
 
-        <!-- Ángulos estructurales fijados -->
-        <div class="corner-bracket tl"></div>
-        <div class="corner-bracket tr"></div>
-        <div class="corner-bracket bl"></div>
-        <div class="corner-bracket br"></div>
+            <div class="vip-crest"></div>
 
-        <!-- Cabecera de Alto Rango -->
-        <div class="header-shield">
-            <div class="sys-badge">✦ AUTENTICACIÓN OPERATIVA ✦</div>
-            <h1>ALTO MANDO GENERAL DE MESA</h1>
+            <div class="header-shield">
+                <div class="sys-badge">AUTENTICACIÓN REQUERIDA</div>
+                <h1>ALTO <strong>MANDO</strong></h1>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="user">DESTACAMENTO DE ORIGEN</label>
+                    <select class="form-input" id="user" required>
+                        <option value="" disabled selected>SELECCIONE DIVISIÓN</option>
+                        <option value="lider_academia">Academia Militar</option>
+                        <option value="lider_fuego">Comando Táctico Fuego</option>
+                        <option value="lider_agua">Fuerzas Anfibias Agua</option>
+                        <option value="lider_tierra">Infantería Blindada Tierra</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pass">CÓDIGO DE AUTORIZACIÓN</label>
+                    <input type="password" class="form-input" id="pass" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn-submit">INICIAR ENLACE SEGURO</button>
+            </form>
+
+            <a href="/" class="btn-back">ABORTAR / VOLVER AL INICIO</a>
         </div>
-
-        <!-- Formulario Táctico con Menú de Selección Desplegable -->
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="user">SELECCIONAR FACCIÓN MILITAR</label>
-                <select class="form-input" id="user" required>
-                    <option value="" disabled selected>SELECCIONE SU DIVISIÓN</option>
-                    <option value="lider_academia">Academia Militar</option>
-                    <option value="lider_fuego">Comando Táctico Fuego</option>
-                    <option value="lider_agua">Fuerzas Anfibias Agua</option>
-                    <option value="lider_tierra">Infantería Blindada Tierra</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="pass">LLAVE CRIPTOGRÁFICA DE ACCESO</label>
-                <input type="password" class="form-input" id="pass" required placeholder="••••••••">
-            </div>
-
-            <button type="submit" class="btn-submit">VERIFICAR MANDATO</button>
-        </form>
-
-        <!-- Mensajes de Alerta Crítica -->
-        <div id="errorMessage" class="alert-box"></div>
-
-        <a href="/" class="btn-back">← ABORTAR OPERACIÓN / VOLVER AL INICIO</a>
     </div>
-        <!-- CONTROLADOR JAVASCRIPT Y MOTOR DE AUDIO DEL ALTO MANDO -->
+
     <script>
         let audioCtx = null;
+        let beepInterval = null;
 
         function initAudio() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
         }
 
-        // Tono: Enlace exitoso (Pulso doble de alta frecuencia)
-        function playSuccessSound() {
-            initAudio();
-            let osc1 = audioCtx.createOscillator();
-            let gain1 = audioCtx.createGain();
-            osc1.type = 'sine';
-            osc1.frequency.setValueAtTime(1500, audioCtx.currentTime);
-            gain1.gain.setValueAtTime(0.06, audioCtx.currentTime);
-            gain1.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
-            osc1.connect(gain1);
-            gain1.connect(audioCtx.destination);
-            osc1.start();
-            osc1.stop(audioCtx.currentTime + 0.04);
+        ['touchstart', 'click'].forEach(evt => document.body.addEventListener(evt, initAudio, {passive: true, once: true}));
 
-            setTimeout(() => {
-                let osc2 = audioCtx.createOscillator();
-                let gain2 = audioCtx.createGain();
-                osc2.type = 'sine';
-                osc2.frequency.setValueAtTime(1900, audioCtx.currentTime);
-                gain2.gain.setValueAtTime(0.06, audioCtx.currentTime);
-                gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
-                osc2.connect(gain2);
-                gain2.connect(audioCtx.destination);
-                osc2.start();
-                osc2.stop(audioCtx.currentTime + 0.04);
-            }, 40);
-        }
-
-        // Tono: Acceso Denegado (Pulso descendente de advertencia)
-        function playFailureSound() {
-            initAudio();
+        function playScanBeep() {
+            if(!audioCtx) return;
             let osc = audioCtx.createOscillator();
             let gain = audioCtx.createGain();
             osc.type = 'sine';
-            osc.frequency.setValueAtTime(700, audioCtx.currentTime);
-            osc.frequency.linearRampToValueAtTime(250, audioCtx.currentTime + 0.15);
-            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.15);
+            osc.frequency.setValueAtTime(2800, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.015, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.05);
         }
 
-        // Escucha táctil para habilitar el motor de audio en teléfonos móviles
-        document.body.addEventListener('touchstart', initAudio, {passive: true});
+        function playSuccessSound() {
+            if(!audioCtx) initAudio();
+            let osc = audioCtx.createOscillator(); let gain = audioCtx.createGain();
+            osc.type = 'triangle'; osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(2200, audioCtx.currentTime + 0.15);
+            gain.gain.setValueAtTime(0.05, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.15);
+        }
 
-        // Envío seguro de credenciales al servidor de Express
+        function playFailureSound() {
+            if(!audioCtx) initAudio();
+            let osc = audioCtx.createOscillator(); let gain = audioCtx.createGain();
+            osc.type = 'sawtooth'; osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+            osc.frequency.linearRampToValueAtTime(100, audioCtx.currentTime + 0.3);
+            gain.gain.setValueAtTime(0.06, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+        }
+
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             initAudio();
 
+            const overlay = document.getElementById('biometric-overlay');
+            const scanText = document.getElementById('scanner-text');
             const userVal = document.getElementById('user').value;
-            // El uso de .trim() purga espacios invisibles accidentales al escribir la clave
             const passVal = document.getElementById('pass').value.trim();
-            const errorDiv = document.getElementById('errorMessage');
 
-            errorDiv.style.opacity = "0";
-            errorDiv.style.display = "none";
-            errorDiv.innerText = "";
+            // Resetea clases y activa el escáner
+            overlay.className = 'scanner-overlay active';
+            scanText.textContent = "ANALIZANDO BIOMETRÍA...";
+            
+            // Inicia pitidos de escaneo
+            beepInterval = setInterval(playScanBeep, 350);
 
-            fetch('/api/login-lideres', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ user: userVal, pass: passVal })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    playSuccessSound();
-                    // Breve retraso para oír el tono de éxito antes de la redirección
-                    setTimeout(() => { window.location.href = data.redirect; }, 120);
-                } else {
+            // Simula el tiempo que tarda el escáner físico (2.5 seg)
+            setTimeout(() => {
+                clearInterval(beepInterval);
+                scanText.textContent = "VERIFICANDO CIFRADO...";
+
+                // Contacta al servidor
+                fetch('/api/login-lideres', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user: userVal, pass: passVal })
+      })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        playSuccessSound();
+                        overlay.classList.add('success');
+                        scanText.textContent = "IDENTIDAD CONFIRMADA";
+                        setTimeout(() => { window.location.href = data.redirect; }, 1000);
+                    } else {
+                        playFailureSound();
+                        overlay.classList.add('error');
+                        scanText.textContent = "CREDENCIALES DENEGADAS";
+                        
+                        setTimeout(() => {
+                            overlay.classList.remove('active');
+                            setTimeout(() => overlay.className = 'scanner-overlay', 400); // Resetea visualmente oculto
+                        }, 2500);
+                    }
+                })
+                .catch(() => {
                     playFailureSound();
-                    errorDiv.innerText = `⚠️ [DENEGADO]: ${data.message}`;
-                    errorDiv.style.display = "block";
-                }
-            })
-            .catch(() => {
-                playFailureSound();
-                errorDiv.innerText = "🚨 [FALLA DE ENLACE]: Mainframe central inaccesible.";
-                errorDiv.style.display = "block";
-            });
+                    overlay.classList.add('error');
+                    scanText.textContent = "ERROR DEL MAINFRAME";
+                    setTimeout(() => {
+                        overlay.classList.remove('active');
+                        setTimeout(() => overlay.className = 'scanner-overlay', 400);
+                    }, 2500);
+                });
+            }, 2500);
         });
     </script>
 </body>
